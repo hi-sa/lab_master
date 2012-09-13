@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LabMaster</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if logged_in? -%>
+    <p>こんにちは、<%= current_user.screen_name %>さん</p>
+    <%= image_tag("#{current_user.image_url}") %>
+    <%= link_to 'logout', logout_path %>
+  <% else %>
+    <%= link_to "Twitterでログイン", "auth/twitter" %>
+  <% end %>
+
+
+  <% if fb_logged_in? -%>
+    <%= image_tag("#{fb_current_user.image}") %>
+    <%= link_to 'logout', logout_path %>
+  <% else %>
+    <%= link_to "Facebookでログイン", "auth/facebook" %>
+  <% end %>
+
+    <%#= link_to "Googleでログイン", "auth/google" %>
+    <%= link_to "Sign in with Google", "/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" %>
+
+<%= yield %>
+
+</body>
+</html>

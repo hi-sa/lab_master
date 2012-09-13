@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  group_member_id: 1
+  blog_url: MyString
+  blog_name: MyString
+  description: MyText
+
+two:
+  group_member_id: 1
+  blog_url: MyString
+  blog_name: MyString
+  description: MyText

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  fb_id: 1
+  fb_name: MyString
+  name: MyString
+  image: MyString
+  email: MyString
+  token: MyString
+  expires_at: 1
+  expires_at_to_dt: MyString
+
+two:
+  fb_id: 1
+  fb_name: MyString
+  name: MyString
+  image: MyString
+  email: MyString
+  token: MyString
+  expires_at: 1
+  expires_at_to_dt: MyString

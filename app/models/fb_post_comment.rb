@@ -1,0 +1,3 @@
+class FbPostComment < ActiveRecord::Base
+  # attr_accessible :title, :body
+end

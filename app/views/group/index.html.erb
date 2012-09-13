@@ -1,0 +1,26 @@
+<h1>Group#index</h1>
+<p>Find me in app/views/group/index.html.erb</p>
+
+<%= link_to "新規グループの作成",new_group_path %>
+
+<p>作成したグループの一覧</p>
+
+<% if false %>
+<% @groups.each do |g| %>
+  <%= g.name %>
+  <%= g.description %>
+  <%= g.created_at %>
+  <a href="#">編集する</a>
+  <a href="#">削除する</a>
+  <br />
+<% end %>
+
+<% @group_members.each do |gm| %>
+  <%= gm.name %> 
+<% end %>
+<% end %>
+<br /><br />
+
+<% @groups.each do |gm| %>
+  <%= gm.name %>
+<% end %>
