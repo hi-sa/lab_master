@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LabMaster</title>
+  <title>Lab Master</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <% if logged_in? -%>
-    <p>こんにちは、<%= current_user.screen_name %>さん</p>
+    <% #current_userは変数ではなくメソッド %>
     <%= image_tag("#{current_user.image_url}") %>
     <%= link_to 'logout', logout_path %>
   <% else %>
-    <%= link_to "Twitterでログイン", "auth/twitter" %>
+    <%= link_to "Twitter Login", "auth/twitter" %>
   <% end %>
 
+  <br>
 
   <% if fb_logged_in? -%>
-    <%= image_tag("#{fb_current_user.image}") %>
+    <%#= image_tag("#{fb_current_user.image}") %>
     <%= link_to 'logout', logout_path %>
   <% else %>
-    <%= link_to "Facebookでログイン", "auth/facebook" %>
+    <% # accesstokenを取得したい時はこちらを利用 %>
+    <%#= link_to "Facebookでログイン", "auth/facebook" %>
+    <%= link_to "Facebook Login", "#" %>
   <% end %>
-
-    <%#= link_to "Googleでログイン", "auth/google" %>
-    <%= link_to "Sign in with Google", "/auth/open_id?openid_url=https://www.google.com/accounts/o8/id" %>
 
 <%= yield %>
 

@@ -1,4 +1,27 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<script type="text/javascript">
+  $(function(){
+      $('a.media').media();
+      $('a.audio').media( { width: 300, height: 20 } );
+  });
+</script>
+<script type="text/javascript">
+  /*<![CDATA[*/
+$(document).ready(function() {
+    $('a.embed').gdocsViewer({width: 800, height: 550});
+    $('#embedURL').gdocsViewer();
+    });
+/*]]>*/
+</script>
 
-<%= link_to "グループ一覧へ","/group/" %>
+<h1>Home#index</h1>
+<p>このページでは各種項目の最新情報をダッシュボードのようにして載せる</p>
+
+<%= link_to 'グループ一覧へ','/group/' %>
+<div style="border:4px solid #000;width:800px;height:500px;">
+<a class="media { width:800, height:500 }" href="/ozaken/f_1346249775_1.pdf"></a>
+</div>
+
+<%= link_to 'PDF', action: 'pdf', class: 'media' %>
+
+<a href="http://www19428ue.sakura.ne.jp:3000/ozaken/f_1346249775_1.pdf" class="embed">Google viewre</a>
+<button class='btn'>どうなるかな</button>
