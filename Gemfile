@@ -12,7 +12,7 @@ gem 'mysql2'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
-  #gem 'coffee-rails', '~> 3.2.1'
+  gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
@@ -46,4 +46,7 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
 gem 'thin'
 gem 'twitter'
-#gem 'activerecord-mysql2-adapter'
+gem 'twitter-bootstrap-rails'
+gem 'pry-nav'
+gem 'pry-doc'
+gem 'pry-rails'
