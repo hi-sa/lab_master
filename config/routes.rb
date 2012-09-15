@@ -4,6 +4,9 @@ LabMaster::Application.routes.draw do
   resources :group, :except => 'show'
   resources :test
 
+  # PDFjqueryのテスト用
+  match 'home/pdf'
+
   # Ominuauthの設定
   match 'auth/twitter/callback' => 'sessions#callback'
   match 'auth/facebook/callback' => 'sessions#fb_callback'
