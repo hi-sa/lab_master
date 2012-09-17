@@ -1,0 +1,114 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+body {
+  background:url(<%= image_path "bg.png" %>);
+}
+
+ /* Header _header.html.erb
+------------------------------- */
+
+#global_nav {
+  background: #333333 !important;
+  border-bottom: 3px solid #0071FF !important;
+  padding: 8px 0 8px 0;
+}
+
+#logo {
+  font-weight:bold;
+  font-size:250%;
+  color: #fff;
+}
+
+div#global_nav a:hover {
+  color: #0071FF !important;
+}
+
+.topBarIcon {
+  border: 1px solid #ddd;
+}
+
+
+
+ /* Footer _footer.html.erb
+------------------------------- */
+div#footer{
+  margin-top:30px;
+  border-top: 1px solid #ccc;  
+  color: #fff;
+}
+
+
+ /* layouts/twitter.html.erb
+------------------------------- */
+#main_contents {
+  margin-top: 50px;
+}
+
+#wrapper {
+  background: #DEDEDE;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#wrapper div.size4{
+  padding: 0 10px;
+}
+
+#wrapper .nav-tabs {
+  margin-left: 10px;
+}
+
+
+/* アプリ全体共通
+---------------------------------------*/
+
+/* 太字 */
+.bold {
+  font-weight: bold;
+}
+
+/* 大きい文字 */
+.big_text{
+  font-size: 150%;
+}
+
+/* 40px四方の画像サイズ */
+.image_40 {
+  height: 40px;
+  width: 40px;
+  border-radius: 3px;
+}
+
+/* 中央揃えのテキスト */
+.center_text {
+  text-align: center;
+}
+
+/* 右端揃えのテキスト */
+.right_text {
+  text-align: right;
+}
+
+.text_green {
+  color: #00d800;
+}
+
+.text_orange {
+  color: #ffa500;
+}
+
+.text_yellow {
+  color: #e6e600;
+}
