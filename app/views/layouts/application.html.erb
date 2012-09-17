@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <title>Lab Master</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -7,26 +7,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if logged_in? -%>
-    <% #current_userは変数ではなくメソッド %>
-    <%= image_tag("#{current_user.image_url}") %>
-    <%= link_to 'logout', logout_path %>
-  <% else %>
-    <%= link_to "Twitter Login", "auth/twitter" %>
-  <% end %>
-
-  <br>
-
-  <% if fb_logged_in? -%>
-    <%#= image_tag("#{fb_current_user.image}") %>
-    <%= link_to 'logout', logout_path %>
-  <% else %>
-    <% # accesstokenを取得したい時はこちらを利用 %>
-    <%#= link_to "Facebookでログイン", "auth/facebook" %>
-    <%= link_to "Facebook Login", "#" %>
-  <% end %>
-
-<%= yield %>
-
+  <%= render 'layouts/header' %>
+  <%= yield %>
+  <%= render 'layouts/footer' %>
 </body>
 </html>
