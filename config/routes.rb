@@ -1,7 +1,17 @@
 LabMaster::Application.routes.draw do
 
   root :to => 'home#index'
-  resources :group, :except => 'show'
+
+  # Group
+  resources :group, except: [:show]
+
+  # Twitter
+  resources :twitter, only: [:index, :show]
+
+  # Facebook
+  resources :facebook, only: [:index, :show]
+  match 'facebook/group/:group_id' => 'facebook#group'
+
   resources :test
 
   # PDFjqueryのテスト用
