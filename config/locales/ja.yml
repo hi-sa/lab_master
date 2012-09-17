@@ -1,4 +1,26 @@
 ja:
+  # アプリ名
+  app_name: "Lab Master"
+  refresh: "更新"
+  nav:
+    twitter: "<span class='icon-twitter big_text'></span> Twitter"
+    facebook: "<span class='icon-facebook big_text'></span> Facebook"
+    mail: "<span class='icon-envelope big_text'></span> Mail"
+    file: "<span class='icon-file big_text'></span> File"
+    blog: "<span class='icon-rss big_text'></span> Blog"
+    group: "<span class='icon-group big_text'></span> Group"
+  sub_nav:
+    timeline: "<span class='icon-twitter'></span> TimeLine"
+    insight: "<span class='icon-bar-chart'></span> Insight"
+    search: "<span class='icon-search'></span> Search"
+  
+  group:
+    first: "尾澤研究室1期生"
+    second: "尾澤研究室2期生"
+    third: "尾澤研究室2期生"
+    e_school: "尾澤研究室eスクール生"
+    e_school_and_prof: "尾澤研究室eスクール生&先生・コーチ"
+
   date:
     abbr_day_names:
     - 日

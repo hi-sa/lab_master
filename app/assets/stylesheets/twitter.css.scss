@@ -1,0 +1,118 @@
+// Place all the styles related to the twitter controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.block_center {
+  margin:0 auto;
+}
+
+.tweet_box_content{
+  max-height: 700px;
+  overflow-y: scroll;
+}
+
+#fluid_div {
+  padding-bottom: 20px;
+}
+
+/*-----------------------------------------
+  ツイートボックス
+ -----------------------------------------*/
+.tweet_box {
+  background: #FFF;
+}
+
+.tweet_box_title {
+  /*background-color: #060606;*/
+  color: #fff;
+  border: 2px solid #FFF;
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
+}
+
+.tweet_box_title h4 {
+}
+
+.tweet_box_title .group_name{
+  float: left;
+  padding: 5px 0;
+  margin-left: 10px;
+}
+
+div.option_menu{
+  float: right;
+  padding: 5px 0;
+  margin-right:10px;
+  height: 100%;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.tweet_box_title .refresh {
+}
+
+.tweet_box_content {
+  padding: 0 5px 0;
+  background: #1F1F1F;
+  color: #FFF;
+  border-right: 2px solid #FFF;
+  border-left: 2px solid #FFF;
+  border-bottom: 2px solid #FFF;
+}
+
+/** 個々のツイート **/
+.member_tweet_wrapper{
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member_tweet_wrapper:last-child {
+  border-bottom: none;
+}
+
+.member_picture {
+  float: left;
+  height: 100%;
+  width: 13%;
+}
+
+.member_tweet {
+  float: left;
+  font-size: 70%; 
+  height: 100%;
+  width: 87%;
+}
+
+
+/*-----------------------------------------
+  サブナビゲーション 
+ -----------------------------------------*/
+#sub_nav {
+  margin: 0 0 40px;
+  font-weight: bold;
+  border-radius: 6px 6px 0 0 ; 
+}
+
+#sub_nav_inner {
+  border-radius: 6px 6px 0 0;
+  background: #000;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#sub_nav_inner a {
+  color: #fff;
+  font-size: 140%;
+  text-shadow: none !important;
+}
+
+/* 選択状態 */
+.active_org a {
+  color: #0071FF !important;
+}
+

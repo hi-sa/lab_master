@@ -3,7 +3,7 @@ class TwMember < ActiveRecord::Base
   
   #アソシエーションの定義
   belongs_to :group
-  has_one :group_member, foreign_key :group_member_id
+  has_one :group_member, foreign_key: :group_member_id
   has_many :tweets
 
 end
