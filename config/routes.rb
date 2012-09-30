@@ -16,8 +16,8 @@ LabMaster::Application.routes.draw do
   resources :mail, only: [:index, :show, :edit, :update]
 
   # File
-  #resources :file, only: [:index, :show]
   resources :attachment, only: [:index, :show]
+  match 'attachment/download/:id' => 'attachment#download'
 
   # Ominuauthの設定
   match 'auth/twitter/callback' => 'sessions#callback'

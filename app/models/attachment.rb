@@ -110,4 +110,9 @@ class Attachment < ActiveRecord::Base
     self.joins(:mail).select('mails.sender').group('mails.sender').order('COUNT(mails.sender) DESC')
   end
 
+  # ダウンロード要求のあったファイルの情報を取得する
+  def self.select_file_info(file_id)
+    self.find(file_id)
+  end
+
 end
