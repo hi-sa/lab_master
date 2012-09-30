@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Group < ActiveRecord::Base
   attr_accessible :name, :description, :main_flg, :user_id, :id
   

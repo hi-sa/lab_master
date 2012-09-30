@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 class TwMember < ActiveRecord::Base
   attr_accessible :description, :group_member_id, :image_url, :name, :screen_name, :twitter_id, :group_id
   

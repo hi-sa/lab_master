@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class GroupController < ApplicationController
   # GET group_index
   def index

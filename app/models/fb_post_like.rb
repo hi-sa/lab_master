@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class FbPostLike < ActiveRecord::Base
   # attr_accessible :title, :body
 

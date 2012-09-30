@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class FbGroupMember < ActiveRecord::Base
   attr_accessible :group_id, :fb_id, :fb_name, :gender, :image_url, :id
 

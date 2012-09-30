@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class BlogMember < ActiveRecord::Base
   attr_accessible :blog_name, :blog_url, :description, :group_member_id
   

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class GroupMember < ActiveRecord::Base
   attr_accessible :blog_url, :fb_id, :group_id, :twitter_id, :name, :image_url
 

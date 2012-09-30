@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class FbPost < ActiveRecord::Base
   attr_accessible :fb_member_id, :post_id, :fb_id, :fb_name, :group_id, :group_name, :message, :created_time, :updated_time
 

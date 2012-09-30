@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
   attr_accessible :access_token, :access_token_secret, :image_url, :location, :name, :screen_name, :twitter_id, :id, :description
   
