@@ -3,12 +3,8 @@ class GroupController < ApplicationController
   def index
     # ユーザーが作成したグループの取得
     @groups = Group.find_all_by_user_id(session[:user_id])
-    @group_members = Group.find(1).group_members 
-    @hoge = GroupMembers.find(1)
-    raise @hoge
-    exit
-    #raise @groups.to_yaml
-    #exit
+    #@group_members = Group.find(1).group_members 
+    #@hoge = GroupMembers.find(1)
   end
 
   def new

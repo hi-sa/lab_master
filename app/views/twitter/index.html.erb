@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "inside/twitter", :media => "all" %>
+
 <% #アソシエーションは使わず、joinで一度に取得するパターン %>
 <% if false %>
   <%= @tweets_3rd.each do |tweet| %>
@@ -7,9 +9,9 @@
   <% end %>
 <% end %>
 
-<%# サブナビゲーション %>
-<div id="sub_nav" class="navbar">
-  <div id="sub_nav_inner" class="navbar-inner">
+<%# Twitter サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
     <ul class="nav">
       <li class="active_org"><%= link_to (raw(t "sub_nav.timeline")), twitter_index_path %></li>
       <li><%= link_to (raw(t "sub_nav.insight")), twitter_path(id="all") %></li>
@@ -18,114 +20,12 @@
   </div><%# #icon-envelope %>
 </div><%# #sub_nav %>
 
-<%# ツイート全てを囲うdiv %>
-<div id="fluid_div" class="row-fluid">
-  <%# 1つめのグループのツイートを囲うdiv %>
-  <div class="span4 size4">
-    <div class="tweet_box">
-      <%# ツイートボックスのヘッダー %>
-      <div class="tweet_box_title">
-        <div class="title clearfix">
-          <div class="group_name">
-            <h4><%= t "group.second" %></h4>
-          </div>
-          <div class="option_menu">
-            <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
-          </div>
-        </div>
-      </div>
-      <%# ツイートボックス %>
-      <div class="tweet_box_content">
-        <ul class="unstyled">
-          <% @tweets_2nd.each do |tweet| %>
-            <li class="member_tweet_wrapper clearfix">
-              <div class="member_picture">
-                <a href="#"><%= image_tag tweet.image_url, class: "image_40" %></a>
-              </div>
-              <div class="member_tweet">
-                <span class="bold text_green"><%= tweet.screen_name %></span><br>
-                <%= auto_link tweet.text %><br>
-                <div class="right_text">
-                  <span><%= tweet.tweet_at.strftime "%Y-%m-%d %H:%M:%S" %></span>
-                  <%= tweet.source.html_safe%>
-                </div>
-              </div><%# .member_tweet %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <%# 2つめのグループのツイートを囲うdiv %>
-  <div class="span4 size4">
-    <div class="tweet_box">
-      <%# ツイートボックスのヘッダー %>
-      <div class="tweet_box_title">
-        <div class="title clearfix">
-          <div class="group_name">
-            <h4><%= t "group.third" %></h4>
-          </div>
-          <div class="option_menu">
-            <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
-          </div>
-        </div>
-      </div>
-      <%# ツイートボックス %>
-      <div class="tweet_box_content">
-        <ul class="unstyled">
-          <% @tweets_3rd.each do |tweet| %>
-            <li class="member_tweet_wrapper clearfix">
-              <div class="member_picture">
-                <a href="#"><%= image_tag tweet.image_url, class: "image_40" %></a>
-              </div>
-              <div class="member_tweet">
-                <span class="bold text_orange"><%= tweet.screen_name %></span><br>
-                <%= auto_link tweet.text %><br>
-                <div class="right_text">
-                  <span><%= tweet.tweet_at.strftime "%Y-%m-%d %H:%M:%S" %></span>
-                  <%= tweet.source.html_safe%>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <%# 3つめのグループのツイートを囲うdiv %>
-  <div class="span4 size4">
-    <div class="tweet_box">
-      <%# ツイートボックスのヘッダー %>
-      <div class="tweet_box_title">
-        <div class="title clearfix">
-          <div class="group_name">
-            <h4><%= t "group.e_school_and_prof" %></h4>
-          </div>
-          <div class="option_menu">
-            <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
-          </div>
-        </div>
-      </div>
-      <%# ツイートボックス %>
-      <div class="tweet_box_content">
-        <ul class="unstyled">
-          <% @tweets_es.each do |tweet| %>
-            <li class="member_tweet_wrapper clearfix">
-              <div class="member_picture">
-                <a href="#"><%= image_tag tweet.image_url, class: "image_40" %></a>
-              </div>
-              <div class="member_tweet">
-                <span class="bold text_yellow"><%= tweet.screen_name %></span><br>
-                <%= auto_link tweet.text %><br>
-                <div class="right_text">
-                  <span><%= tweet.tweet_at.strftime "%Y-%m-%d %H:%M:%S" %></span>
-                  <%= tweet.source.html_safe%>
-                </div>
-              </div>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
+<%# tweet全てを囲うdiv %>
+<div id='fluid_div' class='row-fluid'>
+  <% i = 0 %>
+  <% #3グループのみ出力する（とりあえず） %>
+  <% 3.times do %>
+    <%= render 'tweet_box', tweets: @tweets[i], num: i, main_group: @main_groups %>
+    <% i += 1 %>
+  <% end %>
 </div>

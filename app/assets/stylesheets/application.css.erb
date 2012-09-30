@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require_directory .
  */
 
 body {
@@ -40,7 +40,6 @@ div#global_nav a:hover {
 }
 
 
-
  /* Footer _footer.html.erb
 ------------------------------- */
 div#footer{
@@ -50,16 +49,17 @@ div#footer{
 }
 
 
- /* layouts/twitter.html.erb
+ /* コンテンツの大枠 
 ------------------------------- */
 #main_contents {
   margin-top: 50px;
 }
 
 #wrapper {
-  background: #DEDEDE;
+  background: #FFF;
   border-radius: 6px;
   overflow: hidden;
+  padding-bottom: 10px;
 }
 
 #wrapper div.size4{
@@ -71,7 +71,41 @@ div#footer{
 }
 
 
-/* アプリ全体共通
+ /* サブナビゲーション 
+------------------------------- */
+
+div.sub_nav {
+  margin: 0 0 20px;
+}
+div.navbar-inner {
+  min-height: 50px !important;
+}
+
+.navbar .nav > li > a:focus, .navbar .nav > li > a:hover {
+  color: #0071FF !important;
+}
+
+div.navbar-inner-org {
+  border-bottom: 1px solid #D1D1D1;
+  border-radius: 6px 6px 0 0; 
+  padding-left: 0px !important;
+}
+
+div.navbar-inner-org ul.nav > li {
+  border-right: 1px solid #D1D1D1;
+  min-height: 50px;
+  line-height: 2;
+}
+
+/* 選択状態 */
+.active_org > a {
+  color: #0071FF !important;
+}
+
+.v_middle {
+  vertical-align: middle !important;
+}
+ /* その他
 ---------------------------------------*/
 
 /* 太字 */
@@ -79,9 +113,26 @@ div#footer{
   font-weight: bold;
 }
 
+/* 小さい文字 */
+.text_small {
+  font-size: 75%;
+}
+
 /* 大きい文字 */
-.big_text{
+.big_text {
   font-size: 150%;
+}
+
+/* すこし大きい文字 */
+.semi_big_text {
+  font-size: 130%;
+}
+
+/* 25px四方の画像サイズ */
+.image_25 {
+  height: 25px;
+  width: 25px;
+  border-radius: 2px;
 }
 
 /* 40px四方の画像サイズ */
@@ -89,6 +140,22 @@ div#footer{
   height: 40px;
   width: 40px;
   border-radius: 3px;
+}
+
+/* 40px四方の画像サイズ */
+.image_50 {
+  height: 50px;
+  width: 50px;
+  border-radius: 3px;
+}
+
+/* 100px四方の画像サイズ */
+.image_100 {
+  height: 100px;
+  width: 100px;
+  border: 1px solid #fff;
+  padding: 1px;
+  background: #ccc;
 }
 
 /* 中央揃えのテキスト */
@@ -101,14 +168,71 @@ div#footer{
   text-align: right;
 }
 
+/* 緑色のテキスト */
 .text_green {
   color: #00d800;
 }
 
+/* オレンジ色のテキスト */
 .text_orange {
   color: #ffa500;
 }
 
+/* 黄色のテキスト */
 .text_yellow {
   color: #e6e600;
+}
+
+/* 青色のテキスト */
+.text_blue {
+  color: #0000b3;
+}
+
+/* 赤色のテキスト */
+.text_red {
+  color: #cc0000;
+}
+
+/* 黒色のテキスト */
+.text_black {
+  color: #0d0d0d;
+}
+
+/* 黒色のテキスト */
+.text_white {
+  color: #FFF;
+}
+
+/* 65px四方 */
+.width_65 {
+  width: 65%;
+}
+
+/* 最大幅 */
+.width_max {
+  width: 100%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.no_deco {
+  text-decoration: none;
+}
+
+.block_center {
+  padding: 0 auto;
+}
+
+.text_left {
+  text-align: left;
+}
+
+.text_right {
+  text-align: right;
 }

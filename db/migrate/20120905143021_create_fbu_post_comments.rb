@@ -1,6 +1,7 @@
 class CreateFbuPostComments < ActiveRecord::Migration
   def change
-    create_table :fbu_post_comments do |t|
+    #create_table :fbu_post_comments do |t|
+    create_table :fbu_post_comments, :force => true do |t|
       t.integer :fbu_base_post_id
       t.string :post_id, :limit=>50
       t.string :comment_id, :limit=>60

@@ -4,7 +4,7 @@ class CreateFbuBasePosts < ActiveRecord::Migration
       t.integer :fb_member_id
       t.string :post_id, :limit=>50
       t.integer :fb_id, :limit=>8
-      t.string :type, :limit=>10
+      t.string :post_type, :limit=>10
       t.string :created_time, :limit=>30
       t.string :updated_time, :limit=>30
 

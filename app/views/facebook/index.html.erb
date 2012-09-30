@@ -1,7 +1,32 @@
+<%#= stylesheet_link_tag "inside/facebook", :media => "all" %>
+<%= stylesheet_link_tag "inside/twitter", :media => "all" %>
 
+<%# Facebook サブナビゲーション %>
+<div class='navbar sub_nav'>
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li class='active_org'><%= link_to (raw(t 'sub_nav.feed')), facebook_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>
+      <li class='dropdown'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.groups') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% #実際には、登録されたFBグループをeachで回す %>
+          <li><%= link_to '尾澤研究室', '/facebook/group/226826110680052' %></li>
+          <li><%= link_to 'てりやき', '' %></li>
+          <li><%= link_to '師匠探しの旅', '' %></li>
+        </ul>
+      </li>
+      <li><%= link_to (raw(t 'sub_nav.search')), '' %></li>
+    </ul>
+  </div><%# #icon-envelope %>
+</div><%# #sub_nav %>
 
-
-<% @fb_posts.each do |post| %>
-  <%= post.fb_name %>
-  <%= post.message %><br>
-<% end %>
+<%# feed全てを囲うdiv %>
+<div id='fluid_div' class='row-fluid'>
+  <% i = 0 %>
+  <% #3グループのみ出力する（とりあえず） %>
+  <% 3.times do %>
+    <%= render 'feed_box', feeds: @feeds[i], num: i, main_group: @main_groups %>
+    <% i += 1 %>
+  <% end %>
+</div>

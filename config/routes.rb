@@ -12,16 +12,20 @@ LabMaster::Application.routes.draw do
   resources :facebook, only: [:index, :show]
   match 'facebook/group/:group_id' => 'facebook#group'
 
-  resources :test
+  # Mail
+  resources :mail, only: [:index, :show, :edit, :update]
 
-  # PDFjqueryのテスト用
-  match 'home/pdf'
+  # File
+  #resources :file, only: [:index, :show]
+  resources :attachment, only: [:index, :show]
 
   # Ominuauthの設定
   match 'auth/twitter/callback' => 'sessions#callback'
   match 'auth/facebook/callback' => 'sessions#fb_callback'
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/logout' => 'sessions#fb_destroy', :as => :logout
+
+  match 'home/pdf' => 'home#pdf'
   
   #get "group/index"
   #get "group/new"

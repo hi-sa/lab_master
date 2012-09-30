@@ -2,6 +2,7 @@ class CreateFbPosts < ActiveRecord::Migration
   def change
     create_table :fb_posts do |t|
       t.integer :fb_member_id
+      t.column :fb_group_member_id, 'integer unsigned'
       t.string :post_id, :limit=>50
       t.integer :fb_id, :limit=>8
       t.string :fb_name, :limit=>50

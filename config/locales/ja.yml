@@ -1,7 +1,10 @@
 ja:
-  # アプリ名
-  app_name: "Lab Master"
+  app_name: "Lab Master" # アプリ名
   refresh: "更新"
+  download: "ダウンロード" # ダウンロード
+  see_mail: "元のメールを見る"
+  mail_not_found: "メールは見つかりませんでした"
+  file_not_found: "ファイルは見つかりませんでした"
   nav:
     twitter: "<span class='icon-twitter big_text'></span> Twitter"
     facebook: "<span class='icon-facebook big_text'></span> Facebook"
@@ -10,9 +13,21 @@ ja:
     blog: "<span class='icon-rss big_text'></span> Blog"
     group: "<span class='icon-group big_text'></span> Group"
   sub_nav:
-    timeline: "<span class='icon-twitter'></span> TimeLine"
     insight: "<span class='icon-bar-chart'></span> Insight"
     search: "<span class='icon-search'></span> Search"
+
+    # twitter
+    timeline: "<span class='icon-twitter'></span> TimeLine"
+
+    # facebook
+    feed: "<span class='icon-facebook'></span> Feed"
+    groups: "<span class='icon-group'></span> Groups"
+
+    # mail
+    mails: "<span class='icon-envelope'></span> Mails"
+
+    # file
+    attachments: "<span class='icon-file'></span> Files"
   
   group:
     first: "尾澤研究室1期生"
