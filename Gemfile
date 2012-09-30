@@ -50,5 +50,6 @@ gem 'twitter-bootstrap-rails'
 gem 'pry-nav'
 gem 'pry-doc'
 gem 'pry-rails'
-gem "rails_autolink", "~> 1.0.9"
+gem 'rails_autolink', '~> 1.0.9'
 gem 'font-awesome-rails'
+gem 'kaminari'

@@ -12,7 +12,7 @@ class MailController < ApplicationController
 
     search_options = params
 
-    @mails = Mail.search_mails_with_params(search_options)
+    @mails = Mail.search_mails_with_params(search_options).page params[:page]
 
     # メールアドレスの取得
     @m_addresses = Mail.search_sender_mail_addresses
