@@ -29,7 +29,6 @@ class MailController < ApplicationController
 
     # 添付ファイル付きのメール件数を取得
     @attach_mails_num = Mail.count_attach_mails
-
   end
 
   def show

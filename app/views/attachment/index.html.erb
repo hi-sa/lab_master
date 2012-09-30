@@ -25,8 +25,8 @@
           <div class='clearfix'>
             <div class='left text_white'>ソート：</div>
             <div class='left'>
-              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-default' : 'label-warning'}'>新 → 古</span>"), params.merge(sort: 'desc', sender: nil, search: nil)) %> 
-              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-warning' : 'label-default'}'>古 → 新</span>"), params.merge(sort: 'asc', sender: nil, search: nil)) %> 
+              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-default' : 'label-warning'}'>新 → 古</span>"), params.merge(opt={sort: 'desc'})) %> 
+              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-warning' : 'label-default'}'>古 → 新</span>"), params.merge(opt={sort: 'asc'})) %> 
             </div>
           </div>
         </div>
@@ -35,17 +35,18 @@
           <form>
             <select id='select_sender' class='text_small' style='width:80%;margin:0;padding:0;'>
               <option>メールアドレスで絞り込む</option>
-              <% #@m_addresses.each do |address| %>
-                <a href='#'><option value='<%#= address.sender[2..-3] %>'><%#= address.sender[2..-3] %></option></a>
-              <% #end %>
+              <% @m_addresses.each do |address| %>
+                <a href='#'><option value='<%= address.sender[2..-3] %>'><%= address.sender[2..-3] %></option></a>
+              <% end %>
             </select>
           </form>
         </div>
+
         <%#--search---%>
         <div class='search_box right'>
           <div class='input-append' style='margin:0;padding:0;'>
-            <%= form_tag(mail_index_path, method: 'GET') do %>
-              <%= text_field_tag 'query', '', id: 'mail_search', placeholder: 'Search...', style: 'width:80%', size: 20 %>
+            <%= form_tag(attachment_index_path, method: 'GET') do %>
+              <%= text_field_tag 'query', '', id: 'file_search', placeholder: 'Search...', style: 'width:80%', size: 20 %>
               <span class="add-on"><i class='icon-search'></i></span>
             <% end %>
           </div>
@@ -56,11 +57,14 @@
     <%#-----FILES------%>
     <div id='all_mail_wrapper'>
       <% if @attachments.present? %>
+        <div class='counter'>
+          該当ファイル：全<span class='big_text text_red bold'> <%= @showed_files_num %> </span>件
+        </div>
         <% @attachments.each do |attach| %>
           <div class='mail_wrapper clearfix'>
             <% # 送信者 %>
             <div class='mail_parts file_from'>
-              <i class='icon-user text_red big_text v_middle'></i> <%= truncate(attach.sender[2..-3], length: 25, omission: '..') %>
+              <i class='icon-user text_red big_text v_middle'></i> <%= truncate(attach.mail.sender[2..-3], length: 25, omission: '..') %>
             </div>
             <% # 件名 %>
             <div class='mail_parts file_title'>
@@ -70,7 +74,7 @@
             </div>
             <% # 送信日 %>
             <div class='mail_parts file_date center_text'>
-              <i class='icon-calendar text_blue big_text v_middle'></i> <%= attach.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
+              <i class='icon-calendar text_blue big_text v_middle'></i> <%= attach.mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
             </div>
             <% # 元のメール %>
             <div class='mail_parts file_mail center_text'>
@@ -91,6 +95,10 @@
           <span class='text_red'><i class='icon-warning-sign text_red'></i> <%= t 'file_not_found' %></span>
         </div>
       <% end %>
+    </div>
+    <% # ページネーション %>
+    <div class='center_text'>
+      <%= paginate @attachments %>
     </div>
   </div>
 
@@ -119,7 +127,7 @@
           <tbody>
             <tr>
               <td class='text_left'><i class='icon-file text_red'></i> 全ファイル</td>
-              <td class='text_right'><%= "#{@file_count}件" %></td>
+              <td class='text_right'><%= "#{@all_file_num}件" %></td>
             </tr>
             <% @ext_list.each do |ext| %>
               <tr>
@@ -131,7 +139,5 @@
         </table>
       </div>
     </div>
-
-
   </div>
 </div>

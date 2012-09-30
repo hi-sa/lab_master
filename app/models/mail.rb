@@ -126,7 +126,7 @@ class Mail < ActiveRecord::Base
   end
 
   # 表示中のメールの件数を取得する
-  # FIXME: この入れ子だらけ、なんとかならないものか
+  # FIXME: このネストの連鎖、なんとかならないものか
   def self.count_showed_mails(search_options)
     if search_options['date']
       date = search_options['date']
