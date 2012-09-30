@@ -16,9 +16,6 @@
 <div id='fluid_div' class='row-fluid'>
   <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
   <div class='span9'>
-    <%#= debug(@parameters) %>
-    <%#= @parameters.inspect %>
-
     <%#-----SEARCH OPTION------%>
     <div id='search_option_wrapper'>
       <div class='search_option clearfix'>
@@ -99,6 +96,10 @@
           <span class='text_red'><i class='icon-warning-sign text_red'></i> <%= t 'mail_not_found' %></span>
         </div>
       <% end %>
+    </div>
+    <% # ページネーション %>
+    <div class='center_text'>
+      <%= paginate @mails %>
     </div>
   </div>
 

@@ -3,7 +3,11 @@ class Mail < ActiveRecord::Base
 
   attr_accessible :id, :org_id, :subject, :sender, :to, :body, :send_at, :attach_flg 
 
+  # アソシエーション
   has_one :attachment
+
+  # Kaminari(ページネーション)の設定。1ページに表示する件数
+  paginates_per 20
 
   # 条件(パラメータ）を元にメールの検索をし、取得する
   def self.search_mails_with_params(opt)
@@ -73,15 +77,15 @@ class Mail < ActiveRecord::Base
   def self.search_mails_by_sender(sender, data, sort)
     if data == 'attachments'
       if sort == 'asc'
-        mails = self.where('body LIKE ?', "%#{sender}%").where(:attach_flg => true).order("send_at ASC").limit(30)
+        mails = self.where('sender LIKE ?', "%#{sender}%").where(:attach_flg => true).order("send_at ASC").limit(30)
       else
-        mails = self.where('body LIKE ?', "%#{sender}%").where(:attach_flg => true).order("send_at DESC").limit(30)
+        mails = self.where('sender LIKE ?', "%#{sender}%").where(:attach_flg => true).order("send_at DESC").limit(30)
       end
     else 
       if sort == 'asc'
-        mails = self.where('body LIKE ?', "%#{sender}%").order("send_at ASC").limit(30)
+        mails = self.where('sender LIKE ?', "%#{sender}%").order("send_at ASC").limit(30)
       else
-        mails = self.where('body LIKE ?', "%#{sender}%").order("send_at DESC").limit(30)
+        mails = self.where('sender LIKE ?', "%#{sender}%").order("send_at DESC").limit(30)
       end
     end
 

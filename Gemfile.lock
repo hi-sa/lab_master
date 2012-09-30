@@ -59,6 +59,9 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     less (2.2.2)
       commonjs (~> 0.2.6)
     less-rails (2.2.3)
@@ -189,6 +192,7 @@ DEPENDENCIES
   execjs
   font-awesome-rails
   jquery-rails
+  kaminari
   mysql2
   omniauth
   omniauth-facebook

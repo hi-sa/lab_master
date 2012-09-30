@@ -5,6 +5,13 @@ ja:
   see_mail: "元のメールを見る"
   mail_not_found: "メールは見つかりませんでした"
   file_not_found: "ファイルは見つかりませんでした"
+  views:
+    pagination:
+      first: "«最初"
+      last: "最後»"
+      previous: "‹ 前"
+      next: "次 ›"
+      truncate: "..." 
   nav:
     twitter: "<span class='icon-twitter big_text'></span> Twitter"
     facebook: "<span class='icon-facebook big_text'></span> Facebook"
