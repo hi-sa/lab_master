@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class AttachmentController < ApplicationController
   layout "twitter"
 
@@ -28,6 +29,15 @@ class AttachmentController < ApplicationController
   end
 
   def download
+    # ダウンロード要求のあったファイルの情報を取得する
+    file_info = Attachment.select_file_info(params[:id])
+
+    # ファイルのダウンロードの実行
+    begin
+      send_file "public/ozaken/#{file_info[:file_id]}#{file_info[:ext]}", filename: file_info[:filename]
+    rescue
+      redirect_to attachment_index_path, alert: 'ファイルのダウンロードに失敗しました'
+    end
   end
 
 end
