@@ -110,22 +110,52 @@ class Mail < ActiveRecord::Base
     return mails
   end
 
-  ## 送信者のメールアドレスの取得
+  # 送信者のメールアドレスの取得
   def self.search_sender_mail_addresses
     self.select('sender').group('sender').order('COUNT(sender) DESC')
   end
 
-  ## 日付(年-月)毎の件数を取得する
+  # 日付(年-月)毎の件数を取得する
   def self.search_by_send_at
     self.select("DATE_FORMAT(send_at,'%Y年%m月') as 'year_month', COUNT(id) as num, DATE_FORMAT(send_at, '%Y%m') as 'query_value'").group("DATE_FORMAT(send_at,'%Y年%m月') DESC")
   end
 
-  ## 全メールの件数を取得する 
+  # 全メールの件数を取得する 
   def self.count_all_mails
     self.count
   end
 
-  ## 添付ファイル月メールの件数を取得する
+  # 表示中のメールの件数を取得する
+  # FIXME: この入れ子だらけ、なんとかならないものか
+  def self.count_showed_mails(search_options)
+    if search_options['date']
+      date = search_options['date']
+      if search_options['data'] == 'attachments'
+        showed_mails = self.where("DATE_FORMAT(send_at,'%Y%m') = #{date}").where(:attach_flg => true).count
+      else
+        showed_mails = self.where("DATE_FORMAT(send_at,'%Y%m') = #{date}").count
+      end
+    elsif search_options['query']
+      query = search_options['query']
+      if search_options['data'] == 'attachments'
+        showed_mails = self.where(:attach_flg => true).where('body LIKE ? or subject LIKE ? or sender LIKE ?', "%#{query}%", "%#{query}%", "%#{query}%").count
+      else
+        showed_mails = self.where('body LIKE ? or subject LIKE ? or sender LIKE ?', "%#{query}%", "%#{query}%", "%#{query}%").count
+      end
+    elsif search_options['sender']
+      sender = search_options['sender']
+      if search_options['data'] == 'attachments'
+        showed_mails = self.where('sender LIKE ?', "%#{sender}%").where(:attach_flg => true).count
+      else
+        showed_mails = self.where('sender LIKE ?', "%#{sender}%").count
+      end
+    else
+        showed_mails = self.count_all_mails
+    end
+    return showed_mails
+  end
+
+  # 添付ファイル月メールの件数を取得する
   def self.count_attach_mails
     self.where(:attach_flg => true).count
   end

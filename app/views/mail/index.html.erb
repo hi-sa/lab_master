@@ -65,6 +65,9 @@
     <%#-----MAILS------%>
     <div id='all_mail_wrapper'>
       <% if @mails.present? %>
+        <div class='counter'>
+          該当メール：全<span class='big_text text_red bold'> <%= @showed_mails_num %> </span>件
+        </div>
         <% @mails.each do |mail| %>
           <div class='mail_wrapper clearfix'>
             <% # 送信者 %>
@@ -129,11 +132,11 @@
           <tbody>
             <tr>
               <td class='text_left'><i class='icon-envelope text_green'></i> 全メール</td>
-              <td class='text_right'><%= "#{@count_mails}件" %></td>
+              <td class='text_right'><%= "#{@all_mails_num}件" %></td>
             </tr>
             <tr>
               <td class='text_left'><i class='icon-paper-clip text_yellow'></i> 添付ファイル付きメール</td>
-              <td class='text_right'><%= "#{@count_attach_mails}件" %></td>
+              <td class='text_right'><%= "#{@attach_mails_num}件" %></td>
             </tr>
             <tr>
               <td class='text_left'><i class='icon-group text_red'></i> 送信者数</td>
