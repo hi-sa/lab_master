@@ -1,0 +1,199 @@
+// Place all the styles related to the facebook controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.link_wrapper {
+  width: 100%;
+}
+
+.link_left {
+  float: left;
+  margin-right: 13px;
+  height: 100%;
+  width: 30%;
+}
+
+.link_right {
+  float: left;
+  font-size: 70%; 
+  height: 100%;
+}
+
+.video_wrapper {
+  width: 100%;
+  padding: 3px;
+}
+
+.video {
+  max-width: 270px;
+  max-height: 170px;
+}
+
+ /* フィードボックス 
+------------------------------- */
+.tweet_box {
+  background: #FFF;
+}
+
+.tweet_box_title {
+  /*background-color: #060606;*/
+  color: #fff;
+  border: 1px solid #DEDEDE;
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
+}
+
+.tweet_box_title h4 {
+}
+
+.tweet_box_title .group_name{
+  float: left;
+  padding: 5px 0;
+  margin-left: 10px;
+}
+
+div.option_menu{
+  float: right;
+  /*padding: 5px 0;*/
+  margin-right:10px;
+  height: 100%;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.tweet_box_title .refresh {
+}
+
+.tweet_box_content {
+  padding: 0 5px 0;
+  background: #1F1F1F;
+  color: #FFF;
+  border-right: 1px solid #DEDEDE;
+  border-left: 1px solid #DEDEDE;
+  border-bottom: 1px solid #DEDEDE;
+}
+
+/** 個々のツイート **/
+.member_tweet_wrapper{
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member_tweet_wrapper:last-child {
+  border-bottom: none;
+}
+
+.member_picture {
+  float: left;
+  height: 100%;
+  width: 13%;
+}
+
+.member_tweet {
+  float: left;
+  font-size: 70%; 
+  height: 100%;
+  width: 87%;
+}
+
+ /* サブナビゲーション 
+------------------------------- */
+div#sub_nav_inner_fb {
+  border-bottom: 1px solid #D1D1D1;
+  border-radius: 6px 6px 0 0; 
+  padding-left: 0px !important;
+}
+
+div#sub_nav_inner_fb ul.nav > li {
+  border-right: 1px solid #D1D1D1;
+  min-height: 50px;
+  line-height: 2;
+}
+
+ul#group_list a:hover {
+  color: #000;
+}
+
+ /* グループのフィードボックス 
+------------------------------- */
+.fb_post_wrapper {
+  padding: 0 10px;
+}
+
+.fb_header {
+  color: #fff;
+  background: #DEDEDE;
+}
+
+.fb_header_title {
+  background: #45484d; /* Old browsers */
+  background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
+}
+
+.fb_header_title .group_name{
+  float: left;
+  margin-left: 10px;
+}
+
+.fb_posts {
+  padding: 0 5px 0;
+  background: #1F1F1F;
+  color: #FFF;
+}
+
+.member_post_wrapper{
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.member_post_wrapper:last-child {
+  border-bottom: none;
+}
+
+.member_picture {
+  float: left;
+  height: 100%;
+  width: 11%;
+}
+
+.member_post {
+  float: left;
+  font-size: 70%; 
+  height: 100%;
+  width: 89%;
+}
+
+.post_likes {
+  margin-bottom:3px;
+}
+
+.post_like_left {
+  float: left;
+  width: 18%;
+}
+
+.post_like_right {
+  float: left;
+  width: 82%;
+}
+
+.post_comment_left {
+  float: left;
+  width: 18%;
+}
+
+.post_comment_right {
+  float: left;
+  width: 82%;
+}
+

@@ -1,0 +1,36 @@
+<%# 1つめのグループのツイートを囲うdiv %>
+<div class="span4 size4">
+  <div class="tweet_box">
+    <%# ツイートボックスのヘッダー %>
+    <div class="tweet_box_title">
+      <div class="title clearfix">
+        <div class="group_name">
+          <h5><%= main_group[num].name %></h5>
+        </div>
+        <div class="option_menu">
+          <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
+        </div>
+      </div>
+    </div>
+    <%# ツイートボックス %>
+    <div class="tweet_box_content">
+      <ul class="unstyled">
+        <% tweets.each do |tweet| %>
+          <li class="member_tweet_wrapper clearfix">
+            <div class="member_picture">
+              <a href="#"><%= image_tag tweet.tw_member.image_url, class: "image_40" %></a>
+            </div>
+            <div class="member_tweet">
+              <span class="bold text_green"><%= tweet.tw_member.screen_name %></span><br>
+              <%= auto_link tweet.text %><br>
+              <div class="right_text">
+                <span><%= tweet.tweet_at.strftime "%Y-%m-%d %H:%M:%S" %></span>
+                <%= tweet.source.html_safe%>
+              </div>
+            </div><%# .member_tweet %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

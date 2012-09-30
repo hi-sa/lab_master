@@ -1,0 +1,26 @@
+
+#group_list {
+  background: #000;
+  opacity: 0.9;
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+#group_list a {
+  font-size: 100% !important;
+  color: #FFF;
+}
+
+#group_list a:hover {
+  background: #ddd;
+  font-size: 100% !important;
+  font-weight: bold;
+}
+
+#group_list::before {
+  content: none;
+}
+
+#group_list::after {
+  content: none;
+}

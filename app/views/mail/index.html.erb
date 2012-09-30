@@ -1,0 +1,148 @@
+<%= stylesheet_link_tag "inside/mail", :media => "all" %>
+<%= javascript_include_tag "inside/mail", :media => "all" %>
+
+<%# Mail サブナビゲーション %>
+<div class='navbar sub_nav'>
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.mails')), mail_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.attachments')), '' %></li>
+      <li><%= link_to (raw(t 'sub_nav.search')), '' %></li>
+    </ul>
+  </div>
+</div>
+
+
+<div id='fluid_div' class='row-fluid'>
+  <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
+  <div class='span9'>
+    <%#= debug(@parameters) %>
+    <%#= @parameters.inspect %>
+
+    <%#-----SEARCH OPTION------%>
+    <div id='search_option_wrapper'>
+      <div class='search_option clearfix'>
+        <%#--output---%>
+        <div class='filter_box left'>
+          <div class='clearfix'>
+            <div class='left text_white'>表示：</div>
+            <div class='left'>
+              <%= link_to(raw("<span class='label #{params[:data] == 'attachments' ? 'label-default' : 'label-warning'}'>全て</span>"), params.merge(opt={data: 'all', sender: nil, search: nil}) ) %> 
+              <%= link_to(raw("<span class='label #{params[:data] == 'attachments' ? 'label-warning' : 'label-default'}'>添付ファイル付き</span>"), params.merge(opt={data: 'attachments', sender: nil, search: nil}) ) %> 
+            </div>
+          </div>
+        </div>
+        <%#--sort---%>
+        <div class='sort_box clearfix left'>
+          <div class='clearfix'>
+            <div class='left text_white'>ソート：</div>
+            <div class='left'>
+              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-default' : 'label-warning'}'>新 → 古</span>"), params.merge(opt={sort: 'desc'})) %> 
+              <%= link_to(raw("<span class='label #{params[:sort] == 'asc' ? 'label-warning' : 'label-default'}'>古 → 新</span>"), params.merge(opt={sort: 'asc'})) %> 
+            </div>
+          </div>
+        </div>
+        <%#--sender---%>
+        <div class='sender_box left'>
+          <form>
+            <select id='select_sender' class='text_small' style='width:80%;margin:0;padding:0;'>
+              <option>メールアドレスで絞り込む</option>
+              <% @m_addresses.each do |address| %>
+                <a href='#'><option value='<%= address.sender[2..-3] %>'><%= address.sender[2..-3] %></option></a>
+              <% end %>
+            </select>
+          </form>
+        </div>
+        <%#--search---%>
+        <div class='search_box left'>
+          <div class='input-append' style='margin:0;padding:0;'>
+            <%= form_tag(mail_index_path, method: 'GET') do %>
+              <%= text_field_tag 'query', '', id: 'mail_search', placeholder: 'Search...', style: 'width:80%', size: 20 %>
+              <span class="add-on"><i class='icon-search'></i></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div><!-- div#search_option_wrapper -->
+
+    <%#-----MAILS------%>
+    <div id='all_mail_wrapper'>
+      <% if @mails.present? %>
+        <% @mails.each do |mail| %>
+          <div class='mail_wrapper clearfix'>
+            <% # 送信者 %>
+            <div class='mail_parts from'>
+              <i class='icon-user text_red big_text v_middle'></i> <%= truncate(mail.sender[2..-3], length: 25, omission: '..') %>
+            </div>
+            <% # 件名 %>
+            <div class='mail_parts title'>
+              <a href='<%= mail_path(mail.id) %>' rel='tooltip' data-placement='top' title="<%= truncate(mail.body, length: 100, omission: '...') %>" >
+                <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(mail.subject, length: 50, omission: '..') %>
+              </a>
+            </div>
+            <% # 送信日 %>
+            <div class='mail_parts date center_text'>
+              <i class='icon-calendar text_blue big_text v_middle'></i> <%= mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
+            </div>
+            <% # 添付ファイル %>
+            <div class='mail_parts attachment center_text'>
+              <% if mail.attach_flg.present? %>
+                <a href='<%= attachment_path(mail.attachment.id) %>' rel='tooltip' data-placement='top' title='<%= mail.attachment.filename %>' class='text_black'>
+                  <%= raw("<i class='icon-paper-clip big_text'></i>") %>
+                </a>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class='mail_wrapper' style='line-height:30px;text-align:center;'>
+          <span class='text_red'><i class='icon-warning-sign text_red'></i> <%= t 'mail_not_found' %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%#---------------------------------------------------------RIHGT-------------------------------------------------------------%>
+  <div class='span3' style='margin-left:0;'>
+    <%#日付での分類 %>
+    <div class='date_list'>
+      <div class='date_list_head'><i class='icon-calendar'></i> 日付で絞り込む</div>
+      <div class='date_list_contents'>
+        <table class='width_max'>
+          <tbody>
+            <% @send_at_list.each do |mail| %>
+              <tr>
+                <td class='center_text text_white'><%= link_to mail.year_month, params.merge(opt={date: mail.query_value, query: nil, sender: nil}) %></td>
+                <td class='center_text text_white'><%= "#{mail.num}件" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <%#ミニ分析 %>
+    <div class='insight'>
+      <div class='insight_head'><i class='icon-bar-chart'></i> 集計</div>
+      <div class='insight_contents'>
+        <table class='width_max'>
+          <tbody>
+            <tr>
+              <td class='text_left'><i class='icon-envelope text_green'></i> 全メール</td>
+              <td class='text_right'><%= "#{@count_mails}件" %></td>
+            </tr>
+            <tr>
+              <td class='text_left'><i class='icon-paper-clip text_yellow'></i> 添付ファイル付きメール</td>
+              <td class='text_right'><%= "#{@count_attach_mails}件" %></td>
+            </tr>
+            <tr>
+              <td class='text_left'><i class='icon-group text_red'></i> 送信者数</td>
+              <td class='text_right'><%= "#{@m_addresses.length}名" %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+

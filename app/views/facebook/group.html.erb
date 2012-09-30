@@ -1,0 +1,109 @@
+<%= stylesheet_link_tag "inside/facebook", :media => "all" %>
+
+<%# Facebook サブナビゲーション %>
+<div id='sub_nav_fb' class='navbar'>
+  <div id='sub_nav_inner_fb' class='navbar-inner'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.feed')), facebook_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>
+      <li class='dropdown active_org'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.groups') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% #NOTE 実際には、登録されたFBグループをeachで回す %>
+          <li><%= link_to '尾澤研究室', '/facebook/group/226826110680052' %></li>
+          <li><%= link_to 'てりやき', '' %></li>
+          <li><%= link_to '師匠探しの旅', '' %></li>
+        </ul>
+      </li>
+      <li><%= link_to (raw(t 'sub_nav.search')), '' %></li>
+    </ul>
+  </div><%# #icon-envelope %>
+</div><%# #sub_nav %>
+
+<div id='fluid_div' class='row-fluid'>
+  <%#----------------------------------------- LEFT --------------------------------------------- %>
+  <div class='span6'>
+    <% #投稿を表示するdiv %>
+    <div class='fb_post_wrapper'>
+      <% #投稿のヘッダー用のdiv %>
+      <div class='fb_header'>
+        <div class="fb_header_title clearfix">
+          <div class="group_name">
+            <h5>尾澤研究室</h5>
+          </div>
+          <div class="option_menu">
+            <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
+          </div>
+        </div>
+      </div>
+      <% #投稿の中身を表示するdiv %>
+      <div class='fb_posts'>
+        <ul class="unstyled">
+          <% @posts.each do |post| %>
+            <li class="member_post_wrapper clearfix">
+              <div class="member_picture">
+                <%= link_to image_tag(post.fb_group_member.image_url, class: "image_50"), "http://facebook.com/#{post.fb_id}" %>
+              </div>
+              <div class="member_post">
+                <div class='post_user'>
+                  <%= link_to post.fb_group_member.fb_name, "http://facebook.com/#{post.fb_id}"  %><br>
+                </div>
+                <div class='post_content'>
+                  <% if post.message != '' %>
+                    <% #メッセージの場合 %>
+                    <%= post.message %>
+                  <% elsif post.fb_post_picture.picture != '' %>
+                    <% #写真の場合 %>
+                    <%= image_tag(post.fb_post_picture.picture, class: 'image_100') %>
+                  <% elsif post.fb_post_video.picture != '' %>
+                    <% #動画の場合 %>
+                    <%= post.fb_post_video.picture %>
+                  <% end %>
+                </div>
+                <div class='post_at right_text'>
+                  <%= post.created_time %>
+                </div>
+                <div class='post_likes clearfix'>
+                  <div class='post_like_left'><i class='icon-thumbs-up'></i> いいね（<%= post.fb_post_likes.count %>）</div>
+                  <div class='post_like_right'>
+                    <% if post.fb_post_likes.present? %>
+                      <% post.fb_post_likes.each do |like| %>
+                        <%= image_tag like.get_image, class: 'image_25' %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+                <div class='post_comments clearfix'>
+                  <div class='post_comment_left'><i class='icon-comment'></i> コメント（<%= post.fb_post_comments.count %>）</div>
+                  <div class='post_comment_right'>
+                    <% if post.fb_post_comments.present? %>
+                      <% post.fb_post_comments.each do |comment| %>
+                        <a href='' rel='tooltip' data-placement='bottom' title='<%= comment.message %>'><%= image_tag comment.get_image, class: 'image_25' %></a>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <%##---------------------------------------- RIGHT --------------------------------------------# %>
+  <div class='span6'>
+    <div style='width:300px;height:300px;background:black;border-radius:8px;opacity:0.9;'>
+      <div style='color:yellow;text-align:center;padding-top:15px;'>
+        <span>投稿数ランキング</span>
+      </div>
+      <div style='padding:0 10px;'>
+        <ul style='color:white;' class='unstyled'>
+          <li style='margin-bottom:9px;border-bottom:1px solid #FFF;'>hogehoge</li>
+          <li style='margin-bottom:9px;border-bottom:1px solid #FFF;'>fugafuga</li>
+          <li style='margin-bottom:9px;border-bottom:1px solid #FFF;'>foobar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

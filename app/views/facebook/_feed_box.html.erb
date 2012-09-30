@@ -1,0 +1,119 @@
+<div class="span4 size4">
+  <div class="tweet_box">
+    <%# 投稿ボックスのヘッダー %>
+    <div class="tweet_box_title">
+      <div class="title clearfix">
+        <div class="group_name">
+          <h5><%= main_group[num].name %></h5>
+        </div>
+        <div class="option_menu">
+          <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
+        </div>
+      </div>
+    </div>
+    <%# 投稿ボックス %>
+    <div class="tweet_box_content">
+      <ul class="unstyled">
+        <% feeds.each do |feed| %>
+
+          <% #一時的にstatusを出現させなくさせている %>
+          <% #unless feed.post_type == "status" %>
+
+          <li class="member_tweet_wrapper clearfix">
+            <div class="member_picture">
+              <%= link_to image_tag(feed.fb_member.image_url, class: "image_40"), "http://facebook.com/#{feed.fb_id}" %>
+            </div>
+            <div class="member_tweet">
+              <%= link_to feed.fb_member.fb_name, "http://facebook.com/#{feed.fb_id}", class: "#{COLOR[num]} bold" %><br>
+              <% case feed.post_type %>
+              <% # type = status %>
+              <% when "status" %>
+                <% if feed.fbu_post_status %>
+                  <% if feed.fbu_post_status.message.present? %>
+                    <%= auto_link feed.fbu_post_status.message %><br>
+                  <% elsif feed.fbu_post_status.story.present? %>
+                    <%= auto_link feed.fbu_post_status.story %><br>
+                  <% else %>
+                    <%= "取得不可能な投稿です" %>
+                  <% end %>
+                <% else %>
+                  <%= "この投稿は削除されました" %>
+                <% end %>
+              <% #type = link %>
+              <% when "link" %>
+                <% if feed.fbu_post_link %>
+                  <% if feed.fbu_post_link.story.present? %>
+                    <%= auto_link feed.fbu_post_link.story %>
+                  <% else %>
+                    <%= auto_link feed.fbu_post_link.message %>
+                  <% end %>
+                  <div class='link_wrapper clearfix'>
+                    <div class='link_left'>
+                      <%= link_to image_tag(feed.fbu_post_link.picture, class: "image_100"), feed.fbu_post_link.link if feed.fbu_post_link.picture.present? %>
+                    </div>
+                    <div class="link_right <%= feed.fbu_post_link.picture != '' ? "width_65" : "width_max" %>">
+                      <div class='link_title semi_big_text'>
+                        <%= link_to feed.fbu_post_link.name, feed.fbu_post_link.link, class: "semi_big_text" %>
+                      </div>
+                      <div class='link_caption'>
+                        <%= feed.fbu_post_link.caption %>
+                      </div>
+                      <div class='link_desc'>
+                        <%= feed.fbu_post_link.desc %>
+                      </div>
+                    </div>
+                  </div>
+                <% else %>
+                  <%= "※ この投稿は削除されました" %>
+                <% end %>
+              <% # type = photo %>
+              <% when "photo" %>
+                <% if feed.fbu_post_picture %>
+                  <% if feed.fbu_post_picture.story.present? %>
+                    <%= auto_link feed.fbu_post_picture.story %>
+                  <% else %>
+                    <%= auto_link feed.fbu_post_picture.message %>
+                  <% end %>
+                  <%= "#{feed.fbu_post_picture.caption}" if feed.fbu_post_picture.caption %>
+                  <div class='link_wrapper clearfix'>
+                    <div class='link_left'>
+                      <%= link_to image_tag(feed.fbu_post_picture.picture, class: "image_100"), feed.fbu_post_picture.link %>
+                    </div>
+                    <div class='link_right'>
+                      <%= "#{feed.fbu_post_picture.name}" if feed.fbu_post_picture.name %><br>
+                      <%= "#{feed.fbu_post_picture.desc}" if feed.fbu_post_picture.desc %>
+                    </div>
+                  </div>
+                <% else %>
+                  <%= "※この投稿は削除されました" %>
+                <% end %>
+              <% # type = video %>
+              <% when "video" %>
+                <% if feed.fbu_post_video %>
+                  <% if feed.fbu_post_video.story.present? %>
+                    <%= auto_link feed.fbu_post_video.story %>
+                  <% else %>
+                    <%= auto_link feed.fbu_post_video.message %>
+                  <% end %>
+                  <div class='video_wrapper'>
+                    <%= feed.fbu_post_video.name %><br>
+                    <%= feed.fbu_post_video.desc %><br>
+                    <%= link_to video_tag(feed.fbu_post_video.source, controls: true, poster: "#{feed.fbu_post_video.picture}", class: "video"), feed.fbu_post_video.link %>
+                  </div>
+                <% else %>
+                  <%= "※ この投稿はおそらく削除されています" %>
+                <% end %>
+              <% else %>
+                <%= "取得できていないpost_typeの投稿です（#{feed.post_type}）" %>
+              <% end %>
+              <div class="right_text">
+                <span><%= feed.created_time %></span>
+              </div>
+            </div><%# .member_tweet %>
+          </li>
+        <%# end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
