@@ -1,0 +1,23 @@
+<% #メール本文を表示するモーダルウィンドウ %>
+<div class='modal hide fade in' id='<%= "mail_#{id}" %>' tabindex='-1' role='dialog' aria-labelledby='<%= "mail_#{id}Label" %>' aria-hidden='true'>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h5><i class='icon-bookmark text_orange big_text v_middle'></i> <%= subject %></h5>
+  </div>
+  <div class="modal-body">
+    <div>
+      <i class='icon-user text_red big_text v_middle'></i> From : <%= sender[2..-3] %>
+    </div>
+    <!--
+    <div>
+      <i class='icon-calendar text_blue big_text v_middle'></i> Sended_at : <%= send_at.strftime '%Y-%m-%d %H:%M:%S' %>
+    </div>
+    -->
+    <div class='modal_body'>
+      <%= raw(hbr(body)) %>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+  </div>
+</div>

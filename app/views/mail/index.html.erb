@@ -69,30 +69,15 @@
           該当メール：全<span class='big_text text_red bold'> <%= @showed_mails_num %> </span>件
         </div>
         <% @mails.each do |mail| %>
-          <div class='mail_wrapper clearfix'>
-            <% # 送信者 %>
-            <div class='mail_parts from'>
-              <i class='icon-user text_red big_text v_middle'></i> <%= truncate(mail.sender[2..-3], length: 25, omission: '..') %>
-            </div>
-            <% # 件名 %>
-            <div class='mail_parts title'>
-              <a href='<%= mail_path(mail.id) %>' rel='tooltip' data-placement='top' title="<%= truncate(mail.body, length: 100, omission: '...') %>" >
-                <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(mail.subject, length: 50, omission: '..') %>
-              </a>
-            </div>
-            <% # 送信日 %>
-            <div class='mail_parts date center_text'>
-              <i class='icon-calendar text_blue big_text v_middle'></i> <%= mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
-            </div>
-            <% # 添付ファイル %>
-            <div class='mail_parts attachment center_text'>
-              <% if mail.attach_flg.present? %>
-                <a href='<%= attachment_path(mail.attachment.id) %>' rel='tooltip' data-placement='top' title='<%= mail.attachment.filename %>' class='text_black'>
-                  <%= raw("<i class='icon-paper-clip big_text'></i>") %>
-                </a>
-              <% end %>
-            </div>
-          </div>
+          <%= render 'mail_wrapper',
+            id: mail.id,
+            subject: mail.subject,
+            sender: mail.sender,
+            send_at: mail.send_at,
+            body: mail.body,
+            filename: mail.attach_flg.present? ? mail.attachment.filename : nil,
+            attach_id: mail.attach_flg.present? ? mail.attachment.id : nil
+          %>
         <% end %>
       <% else %>
         <div class='mail_wrapper' style='line-height:30px;text-align:center;'>
