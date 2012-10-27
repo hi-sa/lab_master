@@ -35,4 +35,13 @@ class TwMember < ActiveRecord::Base
 
   end
 
+  def self.get_members(group_id)
+    if Group.is_group_id?(group_id)
+      self.select('twitter_id, screen_name').where(:group_id => group_id)
+    else
+      self.select('twitter_id, screen_name').all
+    end
+  end
+
 end
+

@@ -5,6 +5,7 @@ ja:
   see_mail: "元のメールを見る"
   mail_not_found: "メールは見つかりませんでした"
   file_not_found: "ファイルは見つかりませんでした"
+  tweet_not_found: "ツイートは見つかりませんでした"
   file_not_readable: "指定されたファイルは読み込めません"
   file_info: "ファイルの情報"
   view_file: "ファイルを見る"

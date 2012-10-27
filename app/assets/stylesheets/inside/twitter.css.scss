@@ -76,6 +76,7 @@ div.picture_insight {
 div.tweet_insight {
   width: 87%;
   float: left;
+  font-size: 90%;
 }
 
 div#tweet_num_rank_bar, div#client_rank_pie, div#url_and_hash, div#tweet_time_column {
@@ -256,5 +257,63 @@ div.tt_data {
   float: left;
   width: 84%;
 }
+
+/*検索関連*/
+div#tweet_search_options {
+  background-color: #292929;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+#tweet_search {
+  margin: 10px 0 0 15px !important;
+}
+
+div#subnav_search form {
+  margin: 0 !important;
+}
+
+div#tweet_date {
+  width: 48%;
+  float: left;
+}
+
+div#tweet_date input {
+  width: 70%;
+}
+
+div#tweet_user {
+  width: 48%;
+  float: left;
+}
+
+div#tweet_user select {
+  width: 80%;
+  margin: 0 !important;
+}
+
+ul#search_menu li {
+  float: left;
+  padding-right: 15px;
+}
+
+ul#search_menu a:hover {
+  text-decoration: none;
+}
+
+div.tweet_not_found {
+  border: 1px solid #DDD;
+  padding: 11px;
+  border-radius: 4px;
+  color: red;
+  background: whiteSmoke;
+}
+
+
+
+
+
+
 
 

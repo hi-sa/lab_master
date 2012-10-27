@@ -5,8 +5,6 @@
 */
 
 
-
-
 //送信者絞込みのセレクトボックスの選択イベント情報の取得
 $(document).ready(function(){
   $('#select_sender').change(function(){

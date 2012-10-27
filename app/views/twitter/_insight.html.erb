@@ -1,14 +1,5 @@
 <%= javascript_include_tag 'Highcharts/modules/exporting.js' %>
 
-<% if false %>
-  <%= "グループの一日の平均ツイート数:#{@avg_tweets[:group]}" %>
-  <%= "グループメンバーの一日の平均ツイート数:#{@avg_tweets[:person]}" %>
-<% end %>
-
-<% if @avg_tweets_in_all_groups %>
-  <%= "グループ全体のツイート比率:#{@avg_tweets_in_all_groups}" %>
-<% end %>
-
 <% # ツイート数のランキング バーチャート %>
 <%= render 'tweet_rank_bar', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets %>
 

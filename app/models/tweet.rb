@@ -23,6 +23,7 @@ class Tweet < ActiveRecord::Base
   scope :new, order('tweet_at DESC')
   scope :old, order('tweet_at ASC')
   scope :top50, limit(50)
+  scope :top30, limit(30)
   scope :top100, limit(100)
 
 
@@ -49,21 +50,313 @@ class Tweet < ActiveRecord::Base
     return tweets
   end
 
-  # グループのIDからグループ名と所属メンバーのツイート50件を取得する
-  def self.select_tweets(group_id)
-
+  # グループのIDからグループ名と所属メンバーのツイート30件を取得する
+  def self.select_tweets(params)
     # 引数のグループIDのが存在した場合はその値を利用。しない場合はすべてall扱い。
-    if Group.is_group_id?(group_id)
-      tw_id_array = TwMember.make_member_id_array(group_id)
-      tweets = self.where(:twitter_id  => tw_id_array).new.top50
-      group_name = Group.find(group_id).name
+    if Group.is_group_id?(params[:id])
+      tw_id_array = TwMember.make_member_id_array(params[:id])
+      tweets = self.search_tweets_with_params(params)
+      group_name = Group.find(params[:id]).name
     else
       # all含め、全ての投稿を取得
-      tweets = self.new.top50
+      #tweets = self.new.top30
+      tweets = self.search_alltweets_with_params(params)
       group_name = "全グループ"
     end
 
     return { tweets: tweets, group_name: group_name }
+  end
+
+  def self.search_tweets_with_params(params)
+    if params['q']
+      tweets = self.search_tweets_by_query(params[:id], params['q'], params['d'])
+    elsif params['dt']
+      tweets = self.search_tweets_by_date(params[:id], params['dt'], params['d'])
+    elsif params['u']
+      tweets = self.search_tweets_by_user(params[:id],params['u'], params['d'])
+    else
+      tweets = self.search_tweets(params[:id], params['d'])
+    end
+
+    return tweets
+  end
+
+  def self.search_alltweets_with_params(params)
+    if params['q']
+      tweets = self.search_alltweets_by_query(params['q'], params['d'])
+    elsif params['dt']
+      tweets = self.search_alltweets_by_date(params['dt'], params['d'])
+    elsif params['u']
+      tweets = self.search_alltweets_by_user(params['u'], params['d'])
+    else
+      tweets = self.search_alltweets(params['d'])
+    end
+
+    return tweets
+  end
+
+  def self.search_tweets_by_query(group_id, query, data)
+    if data == 'url'
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE t.text LIKE ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,query,group_id])
+    elsif data == 'hashtag'
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE t.text LIKE ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,query,group_id])
+    else
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE t.text LIKE ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,query,group_id])
+    end
+    return tweets
+  end
+
+  def self.search_alltweets_by_query(query, data)
+    if data == 'url'
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE t.text LIKE ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,query])
+    elsif data == 'hashtag'
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE t.text LIKE ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,query])
+    else
+      query = "%#{query}%"
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE t.text LIKE ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,query])
+    end
+    return tweets
+  end
+
+  def self.search_tweets_by_date(group_id, date, data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,date,group_id])
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,date,group_id])
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,date,group_id])
+    end
+
+    return tweets
+  end
+
+  def self.search_alltweets_by_date(date, data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,date])
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,date])
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,date])
+    end
+
+    return tweets
+  end
+
+  def self.search_tweets_by_user(group_id,user,data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE t.twitter_id = ?
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,user,group_id])
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE t.twitter_id = ?
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,user,group_id])
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE t.twitter_id = ?
+             AND tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,user,group_id])
+    end
+
+    return tweets
+  end
+
+  def self.search_alltweets_by_user(user,data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE t.twitter_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,user])
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE t.twitter_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,user])
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE t.twitter_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,user])
+    end
+
+    return tweets
+  end
+
+  def self.search_tweets(group_id,data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             WHERE tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql([sql,group_id])
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             WHERE tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql([sql,group_id])
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             WHERE tm.group_id = ?
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql([sql,group_id])
+    end
+    return tweets 
+  end
+
+  def self.search_alltweets(data)
+    if data == 'url'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM url_tweets ut 
+             INNER JOIN tweets t USING(tweet_id) 
+             INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = UrlTweet.find_by_sql(sql)
+    elsif data == 'hashtag'
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM hashtags h 
+             INNER JOIN tweets t ON h.tweet_id = t.id 
+             INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Hashtag.find_by_sql(sql)
+    else
+      sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
+             FROM tweets t 
+             INNER JOIN tw_members tm USING(twitter_id) 
+             ORDER BY t.tweet_at DESC 
+             LIMIT 30;"
+      tweets = Tweet.find_by_sql(sql)
+    end
+    return tweets 
   end
 
   # グループ毎のツイート数のランキングを集計する

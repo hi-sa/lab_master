@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "inside/twitter", :media => "all" %>
+<%= javascript_include_tag "inside/twitter", :media => "all" %>
 
 <%# Twitter サブナビゲーション %>
 <div class="navbar sub_nav">
@@ -14,16 +15,25 @@
           <% end %>
         </ul>
       </li>
-      <li><%= link_to (raw(t "sub_nav.search")), "" %></li>
+      <li>
+        <%#= link_to (raw(t "sub_nav.search")), "#" %>
+        <div class='input-append' id='subnav_search'>
+          <%= form_tag(twitter_path, method: 'GET') do %>
+            <%= text_field_tag 'q', '', id: 'tweet_search', placeholder: 'Search...' %>
+            <span class="add-on" style='margin-top:10px;margin-right:15px;'><i class='icon-search'></i></span>
+          <% end %>
+        </div>
+      </li>
     </ul>
   </div><%# #icon-envelope %>
 </div><%# #sub_nav %>
 
 <div class='contents clearfix'>
   <div class="group_timeline">
-    <%= render 'insight_tweet_box', tweets: @tweets %>
+    <%= render 'insight_tweet_box', tweets: @tweets, group_members: @group_members %>
   </div>
   <div class="insight_data">
     <%= render 'insight', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets %>
   </div>
 </div>
+<input type='hidden' id='gi' value='<%= params[:id] %>' />

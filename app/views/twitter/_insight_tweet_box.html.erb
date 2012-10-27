@@ -1,5 +1,30 @@
-<div class='tweets_wrapper_insight'>
+
+  <% #検索オプション %>
+  <div id='tweet_search_options'>
+    <ul class='unstyled clearfix' id='search_menu'>
+      <li style='padding-right:5px;color:#fff;'>表示：</li>
+      <li><%= link_to(raw("<span class='label #{params[:d] == 'url'|| params[:d] == 'hashtag' ? 'label-default' : 'label-warning'}'>全て</span>"), params.merge(opt={d: 'all'})) %></li>
+      <li><%= link_to(raw("<span class='label #{params[:d] == 'url' ? 'label-warning' : 'label-default'}'>URL付き</span>"), params.merge(opt={d: 'url'})) %></li>
+      <li><%= link_to(raw("<span class='label #{params[:d] == 'hashtag' ? 'label-warning' : 'label-default'}'>ハッシュタグ付き</span>"), params.merge(opt={d: 'hashtag'})) %></li>
+    </ul>
+    <div id='tweet_search_date_user' class='clearfix'>
+      <div class='input-append' id='tweet_date'>
+        <input type="text" id="datepicker" placeholder='日付で絞り込む'>
+        <span class="add-on"><i class='icon-calendar'></i></span>
+      </div>
+      <div id='tweet_user'>
+        <select id='select_user' class='text_small'>
+          <option value=''><i class='icon-user'></i>ユーザーで絞り込む</option>
+          <% group_members.each do |member| %>
+            <option value='<%= member.twitter_id %>'><%= member.screen_name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
+  </div>
+
   <% #ヘッダ %>
+<div class='tweets_wrapper_insight'>
   <div class='tweets_header_insight'>
     <div class='tweets_header_name_insight'>
       <%= tweets[:group_name] %>
@@ -8,15 +33,17 @@
   <% #コンテンツ %>
   <div class='tweets_insight'>
     <ul class='unstyled'>
+      <%#= debug(tweets[:tweets]) %>
+      <% if tweets[:tweets].present? %>
       <% tweets[:tweets].each do |tweet| %>
         <li class='tweet_data_insight clearfix'>
           <div class='picture_insight'>
-            <a href="#"><%= image_tag tweet.tw_member.image_url, class: "image_40" %></a>
+            <a href="#"><%= image_tag tweet.image_url, class: "image_40" %></a>
           </div>
           <div class='tweet_insight'>
             <div class='username_insight'>
-              <span class='bold'><%= tweet.tw_member.name %></span>
-              @<%= tweet.tw_member.screen_name %>
+              <span class='bold'><%= tweet.name %></span>
+              @<%= tweet.screen_name %>
             </div>
             <div class='text_insight'>
               <%= auto_link tweet.text %>
@@ -27,6 +54,9 @@
             </div>
           </div>
         </li>
+      <% end %>
+      <% else %>
+        <div class='tweet_not_found'><i class='icon-warning-sign'></i> <%= t 'tweet_not_found'%></div>
       <% end %>
     </ul>
   </div>
