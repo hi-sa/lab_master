@@ -2,28 +2,170 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.block_center {
-  margin:0 auto;
-}
-
 .tweet_box_content{
   max-height: 700px;
   overflow-y: scroll;
 }
 
-#fluid_div {
-  padding-bottom: 20px;
+/*new*/
+div.insight_data {
+  width: 745px;/*65%*/
+  margin-left: 15px;
+  float: left;
+  overflow: hidden;
 }
+
+ /* サブナビゲーション 
+------------------------------- */
+/*
+div#sub_nav_inner_tw {
+  border-bottom: 1px solid #D1D1D1;
+  border-radius: 6px 6px 0 0; 
+  padding-left: 0px !important;
+}
+
+div#sub_nav_inner_tw ul.nav > li {
+  border-right: 1px solid #D1D1D1;
+  min-height: 50px;
+  line-height: 2;
+}
+*/
+
+div.tweets_wrapper_insight {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+div.tweets_header_insight {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background: -webkit-linear-gradient(top, white, #F2F2F2);
+  background: linear-gradient(to bottom, white, #F2F2F2);
+  background: o-linear-gradient(top, white, #F2F2F2);
+  background: moz-linear-gradient(top, white, #F2F2F2);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+div.tweets_header_name_insight {
+}
+
+/* tweet_insight と混同注意*/
+div.tweets_insight {
+  padding: 8px;
+}
+
+li.tweet_data_insight {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+}
+
+li.tweet_data_insight:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+div.picture_insight {
+  width: 13%;
+  float: left;
+  text-align: center; /* imgタグはインライン */
+}
+
+div.tweet_insight {
+  width: 87%;
+  float: left;
+}
+
+div#tweet_num_rank_bar, div#client_rank_pie, div#url_and_hash, div#tweet_time_column {
+  margin-bottom: 15px;
+}
+
+div#url_tweets, div#hash_tweets {
+  /*width: 351px;*/
+  border: 1px solid #ddd;
+  background: #F5F5F5;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+div#url_tweets {
+  float: left;
+  width: 67%;
+}
+
+div#hash_tweets {
+  width: 27%;
+  float: right;
+}
+
+div#transmit_time {
+  width: 98%;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  background: #F5F5F5;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+
+
+div.insight_content_header {
+  text-align: center;
+  padding: 10px;
+  font-size: 120%;
+  text-shadow: 1px 1px 0 #fff;
+  border-bottom: 1px solid #BDBDBD;
+}
+
+div.insight_content_body {
+  padding: 10px;
+  border-top: 1px solid #fff;
+  overflow: hidden;
+}
+
+div.insight_content_body a.link {
+  font-size: 85%;
+}
+
+div.insight_content_body img {
+  border-radius: 2px;
+}
+
+div.insight_content_body ul{
+  list-style: none;
+  margin: 0 !important;
+}
+
+ul#hashtag_list li {
+  margin-bottom: 2px;
+}
+
 
 /*-----------------------------------------
   ツイートボックス
  -----------------------------------------*/
+/* 一覧用 */
 .tweet_box {
   background: #FFF;
+  width: 380px;
+  float: left;
+  margin-left: 15px;
+}
+
+.tweet_box:first-child {
+  margin-left: 0;
+}
+
+/* 分析用 */
+div.group_timeline {
+  width: 410px;/*35%*/
+  float: left;
+  overflow: hidden;
 }
 
 .tweet_box_title {
-  /*background-color: #060606;*/
   color: #fff;
   border: 1px solid #DEDEDE;
   background: #45484d; /* Old browsers */
@@ -33,9 +175,7 @@
   background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
   background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
-}
-
-.tweet_box_title h4 {
+  border-radius: 7px 7px 0 0;
 }
 
 .tweet_box_title .group_name{
@@ -53,9 +193,6 @@ div.option_menu{
   vertical-align: middle;
 }
 
-.tweet_box_title .refresh {
-}
-
 .tweet_box_content {
   padding: 0 5px 0;
   background: #1F1F1F;
@@ -64,6 +201,7 @@ div.option_menu{
   border-left: 1px solid #DEDEDE;
   border-bottom: 1px solid #DEDEDE;
 }
+
 
 /** 個々のツイート **/
 .member_tweet_wrapper{
@@ -89,37 +227,34 @@ div.option_menu{
 }
 
 
- /* サブナビゲーション 
-------------------------------- */
-div#sub_nav_inner_tw {
-  border-bottom: 1px solid #D1D1D1;
-  border-radius: 6px 6px 0 0; 
-  padding-left: 0px !important;
+/**経過時間**/
+li.tt_wrapper {
+  width: 50%;
+  float: left;
 }
 
-div#sub_nav_inner_tw ul.nav > li {
-  border-right: 1px solid #D1D1D1;
-  min-height: 50px;
-  line-height: 2;
+
+div.tt_inner {
+  margin: 0 10px 10px 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
-/*
-#sub_nav {
-  margin: 0 0 40px;
-  font-weight: bold;
-  border-radius: 6px 6px 0 0 ; 
+div.tt_inner:hover {
+  background-color: #f8f8f8;
 }
 
-#sub_nav_inner {
-  border-radius: 6px 6px 0 0;
-  background: #000;
-  padding-top: 4px;
-  padding-bottom: 4px;
+div.tt_picture {
+  float: left;
+  width: 16%;
 }
 
-#sub_nav_inner a {
-  color: #fff;
-  font-size: 140%;
-  text-shadow: none !important;
+div.tt_data {
+  float: left;
+  width: 84%;
 }
-*/
+
+

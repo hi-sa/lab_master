@@ -1,7 +1,7 @@
 <div class='mail_wrapper clearfix'>
   <% # 送信者 %>
   <div class='mail_parts from'>
-    <i class='icon-user text_red big_text v_middle'></i> <%= truncate(sender[2..-3], length: 25, omission: '..') %>
+    <i class='icon-user text_red big_text v_middle'></i> <%= truncate(mail.sender[2..-3], length: 25, omission: '..') %>
   </div>
   <% # 件名 %>
   <div class='mail_parts title'>
@@ -12,19 +12,19 @@
     </a>
     -->
     <!-- Modalバージョン-->
-    <a href='<%= "#mail_#{id}" %>' data-toggle='modal' >
-      <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(subject, length: 50, omission: '..') %>
+    <a href='<%= "#mail_#{mail.id}" %>' data-toggle='modal' >
+      <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(mail.subject, length: 50, omission: '..') %>
     </a>
-    <%= render 'modal_window', id: id, subject: subject, sender: sender, send_at: send_at, body: body %>
+    <%= render 'modal_window', mail: mail %>
   </div>
   <% # 送信日 %>
   <div class='mail_parts date center_text'>
-    <i class='icon-calendar text_blue big_text v_middle'></i> <%= send_at.strftime '%Y-%m-%d %H:%M:%S' %>
+    <i class='icon-calendar text_blue big_text v_middle'></i> <%= mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
   </div>
   <% # 添付ファイル %>
   <div class='mail_parts attachment center_text'>
-    <% if filename.present? %>
-      <a href='<%= attachment_path(attach_id) %>' rel='tooltip' data-placement='top' title='<%= filename %>' class='text_black'>
+    <% if mail.attach_flg == true %>
+      <a href='<%= attachment_path(mail.attachment.id) %>' rel='tooltip' data-placement='top' title='<%= mail.attachment.filename %>' class='text_black'>
         <%= raw("<i class='icon-paper-clip big_text'></i>") %>
       </a>
     <% end %>

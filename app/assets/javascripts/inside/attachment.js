@@ -15,3 +15,9 @@ $(document).ready(function(){
   });
 });
 
+// Googleドキュメントビューアー
+$(document).ready(function() {
+  //$('a.embed').gdocsViewer({width: 700, height: 950});
+  $('a.embed').gdocsViewer({width: 700, height: 850});
+  $('#embedURL').gdocsViewer();
+});

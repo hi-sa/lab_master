@@ -103,28 +103,12 @@ div.option_menu{
 
  /* サブナビゲーション 
 ------------------------------- */
-div#sub_nav_inner_fb {
-  border-bottom: 1px solid #D1D1D1;
-  border-radius: 6px 6px 0 0; 
-  padding-left: 0px !important;
-}
-
-div#sub_nav_inner_fb ul.nav > li {
-  border-right: 1px solid #D1D1D1;
-  min-height: 50px;
-  line-height: 2;
-}
-
 ul#group_list a:hover {
   color: #000;
 }
 
  /* グループのフィードボックス 
 ------------------------------- */
-.fb_post_wrapper {
-  padding: 0 10px;
-}
-
 .fb_header {
   color: #fff;
   background: #DEDEDE;
@@ -196,4 +180,17 @@ ul#group_list a:hover {
   float: left;
   width: 82%;
 }
+
+
+div.group_feed {
+  width: 468px;
+  float: left;
+}
+
+div.feed_insight {
+  width: 687px;
+  margin-left: 15px;
+  float: left;
+}
+
 

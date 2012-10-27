@@ -1,0 +1,118 @@
+<%= stylesheet_link_tag "inside/mail", :media => "all" %>
+<%= stylesheet_link_tag "inside/attachment", :media => "all" %>
+<%= javascript_include_tag "inside/attachment", :media => "all" %>
+
+<%# File サブナビゲーション %>
+<div class='navbar sub_nav'>
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.attachments')), attachment_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.search')), '' %></li>
+    </ul>
+  </div>
+</div>
+
+<div id='fluid_div' class='row-fluid'>
+  <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
+  <div class='span8'>
+    <div class='viewer'>
+      <% if READABLE_FORMATS.include?(@file_info.ext) || READABLE_IMAGE_FORMATS.include?(@file_info.ext) %>
+        <% case @file_info.ext %>
+        <% when '.doc','.docx','.pdf' %>
+          <%= link_to '', "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
+        <% when '.png','.jpg','.jpeg','.JPEG','.JPG','.gif' %>
+          <%= image_tag "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
+        <% end %>
+      <% else %>
+        <%= t 'file_not_readable' %>
+      <% end %>
+    </div>
+  </div>
+
+  <%#-------------------------------------------------------RIGHT---------------------------------------------------------------%>
+  <div class='span4' style='margin-left:0;'>
+    <div class='file_info date_list'>
+      <div class='file_info_head date_list_head'><i class='icon-cog'></i> <%= t 'file_info' %></div>
+      <div class='file_info_contents date_list_contents'>
+        <table class='width_max'>
+          <tbody>
+            <tr>
+              <td class='text_left text_white left_info'><i class='icon-file text_green'></i> ファイル名</td>
+              <td class='text_left text_white right_info'><%= @file_info.filename %></td>
+            </tr>
+            <tr>
+              <td class='text_left text_white left_info'><i class='icon-tag text_purple'></i> MIME Type</td>
+              <td class='text_left text_white right_info'><%= @file_info.mime_type %></td>
+            </tr>
+            <tr>
+              <td class='text_left text_white left_info'><i class='icon-user text_red'></i> 送信者</td>
+              <td class='text_left text_white right_info'><%= @file_info.mail.sender[2..-3] %></td>
+            </tr>
+            <tr>
+              <td class='text_left text_white left_info'><i class='icon-bookmark text_yellow'></i> メール件名</td>
+              <td class='text_left text_white right_info'><%= @file_info.mail.subject %></td>
+            </tr>
+            <tr>
+              <td class='text_left text_white left_info'><i class='icon-calendar text_lightblue'></i> 送信日</td>
+              <td class='text_left text_white right_info'><%= @file_info.mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% if @next_file_info.present? %>
+      <div class='file_info date_list next_file_info'>
+        <div class='file_info_head date_list_head'><i class='icon-forward'></i> 一件後のファイル</div>
+        <div class='file_info_contents date_list_contents'>
+          <table class='width_max'>
+            <tbody>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-file text_green'></i> ファイル名</td>
+                <td class='text_left text_white right_info'><%= @next_file_info.filename %></td>
+              </tr>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-user text_red'></i> 送信者</td>
+                <td class='text_left text_white right_info'><%= @next_file_info.mail.sender[2..-3] %></td>
+              </tr>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-bookmark text_yellow'></i> メール件名</td>
+                <td class='text_left text_white right_info'><%= @next_file_info.mail.subject %></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='text_right'>
+            <%= link_to (raw(t 'view_file')), attachment_path(@next_file_info.id), class: "text_small" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @prev_file_info.present? %>
+      <div class='file_info date_list prev_file_info'>
+        <div class='file_info_head date_list_head'><i class='icon-backward'></i> 一件前のファイル</div>
+        <div class='file_info_contents date_list_contents'>
+          <table class='width_max'>
+            <tbody>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-file text_green'></i> ファイル名</td>
+                <td class='text_left text_white right_info'><%= @prev_file_info.filename %></td>
+              </tr>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-user text_red'></i> 送信者</td>
+                <td class='text_left text_white right_info'><%= @prev_file_info.mail.sender[2..-3] %></td>
+              </tr>
+              <tr>
+                <td class='text_left text_white left_info'><i class='icon-bookmark text_yellow'></i> メール件名</td>
+                <td class='text_left text_white right_info'><%= @prev_file_info.mail.subject %></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='text_right'>
+            <%= link_to (raw(t 'view_file')), attachment_path(@prev_file_info.id), class: "text_small" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

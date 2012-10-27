@@ -1,0 +1,29 @@
+<%= stylesheet_link_tag "inside/twitter", :media => "all" %>
+
+<%# Twitter サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class="nav">
+      <li class=""><%= link_to (raw(t "sub_nav.timeline")), twitter_index_path %></li>
+      <li class='dropdown active_org'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.insight') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='tw_group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li><%= link_to '全グループ', twitter_path('all') %></li>
+          <% @main_groups.each do |group| %>
+            <li><%= link_to group.name, twitter_path(group.id) %></li>
+          <% end %>
+        </ul>
+      </li>
+      <li><%= link_to (raw(t "sub_nav.search")), "" %></li>
+    </ul>
+  </div><%# #icon-envelope %>
+</div><%# #sub_nav %>
+
+<div class='contents clearfix'>
+  <div class="group_timeline">
+    <%= render 'insight_tweet_box', tweets: @tweets %>
+  </div>
+  <div class="insight_data">
+    <%= render 'insight', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets %>
+  </div>
+</div>

@@ -1,0 +1,69 @@
+<script>
+$(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'tweet_time_column',
+                type: 'column',
+                borderWidth: 1,
+                borderColor: "#ddd"
+            },
+            title: {
+                text: '<%= "ツイートする時間の割合"%>'
+            },
+            subtitle: {
+                text: <%= "'グループ「#{tweets[:group_name]}」'" %>
+            },
+            xAxis: {
+                categories: [
+                <% tweet_time.each do |tweet| %>
+                  <%= "'#{tweet.hour}'," %>
+                <% end %>
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of tweets (%)'
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                backgroundColor: '#FFFFFF',
+                align: 'left',
+                verticalAlign: 'top',
+                x: 100,
+                y: 70,
+                floating: true,
+                shadow: true
+            },
+            tooltip: {
+                formatter: function() {
+                    return ''+
+                        this.x +'時代: 約'+ this.y +' %';
+                }
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+                series: [{
+                name: 'ツイート数(%)',
+                color: '#BF0B23',
+                data:[
+                     <% tweet_time.each do |tweet| %>
+                       <%= "#{(tweet.counter * 100) / sum_tweets}," %>
+                       <%#= "#{tweet.counter}," %>
+                     <% end %>
+                     ]
+    
+            }]
+        });
+    });
+    
+});
+</script>
+<div id="tweet_time_column" style="width: 745px; height: 300px;"></div>

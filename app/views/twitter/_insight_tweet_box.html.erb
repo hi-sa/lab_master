@@ -1,0 +1,33 @@
+<div class='tweets_wrapper_insight'>
+  <% #ヘッダ %>
+  <div class='tweets_header_insight'>
+    <div class='tweets_header_name_insight'>
+      <%= tweets[:group_name] %>
+    </div>
+  </div>
+  <% #コンテンツ %>
+  <div class='tweets_insight'>
+    <ul class='unstyled'>
+      <% tweets[:tweets].each do |tweet| %>
+        <li class='tweet_data_insight clearfix'>
+          <div class='picture_insight'>
+            <a href="#"><%= image_tag tweet.tw_member.image_url, class: "image_40" %></a>
+          </div>
+          <div class='tweet_insight'>
+            <div class='username_insight'>
+              <span class='bold'><%= tweet.tw_member.name %></span>
+              @<%= tweet.tw_member.screen_name %>
+            </div>
+            <div class='text_insight'>
+              <%= auto_link tweet.text %>
+            </div>
+            <div class='date_source_insight right_text'>
+              <span><%= tweet.tweet_at.strftime "%Y-%m-%d %H:%M:%S" %></span>
+              <%= tweet.source.html_safe%>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

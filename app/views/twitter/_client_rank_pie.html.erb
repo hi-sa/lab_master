@@ -1,0 +1,52 @@
+<script>
+  $(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'client_rank_pie',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                borderWidth: 1,
+                borderColor: "#ddd"
+            },
+            title: {
+                text: <%= "'利用クライアント数の比較(%)'" %>
+            },
+            subtitle: {
+                text: <%= "'グループ「#{tweets[:group_name]}」'" %>
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+                percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'グループ内でのTweet比率',
+                data: [
+                      <% rank_client.each do |tweet| %>
+                        <%= "['#{tweet.source.gsub(/<\/?[^>]*>/, "")}', #{tweet.pct.ceil}]," %>
+                      <% end %>
+                      ]
+            }]
+        });
+    });
+    
+});
+</script>
+<div id="client_rank_pie" style="width: 745px; height: 300px;"></div>

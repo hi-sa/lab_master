@@ -25,12 +25,16 @@ class AttachmentController < ApplicationController
     @m_addresses = Attachment.search_sender_mail_addresses
   end
 
+  # GET attachment/:id
   def show
+    @file_info = Attachment.find(params[:id])
+    @next_file_info = Attachment.select_next_file(@file_info.mail.send_at)
+    @prev_file_info = Attachment.select_prev_file(@file_info.mail.send_at)
   end
 
   def download
     # ダウンロード要求のあったファイルの情報を取得する
-    file_info = Attachment.select_file_info(params[:id])
+    file_info = Attachment.find(params[:id])
 
     # ファイルのダウンロードの実行
     begin

@@ -2,7 +2,7 @@
 <%= javascript_include_tag "inside/mail", :media => "all" %>
 
 <%# Mail サブナビゲーション %>
-<div class='navbar sub_nav'>
+<div class="navbar sub_nav">
   <div class='navbar-inner navbar-inner-org'>
     <ul class='nav'>
       <li><%= link_to (raw(t 'sub_nav.mails')), mail_index_path %></li>
@@ -13,9 +13,10 @@
 </div>
 
 
-<div id='fluid_div' class='row-fluid'>
+<!--<div id='fluid_div' class='row-fluid'>-->
+<div class='contents clearfix'>
   <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
-  <div class='span9'>
+  <div class='mail_list'>
     <%#-----SEARCH OPTION------%>
     <div id='search_option_wrapper'>
       <div class='search_option clearfix'>
@@ -69,15 +70,7 @@
           該当メール：全<span class='big_text text_red bold'> <%= @showed_mails_num %> </span>件
         </div>
         <% @mails.each do |mail| %>
-          <%= render 'mail_wrapper',
-            id: mail.id,
-            subject: mail.subject,
-            sender: mail.sender,
-            send_at: mail.send_at,
-            body: mail.body,
-            filename: mail.attach_flg.present? ? mail.attachment.filename : nil,
-            attach_id: mail.attach_flg.present? ? mail.attachment.id : nil
-          %>
+          <%= render 'mail_wrapper', mail: mail %>
         <% end %>
       <% else %>
         <div class='mail_wrapper' style='line-height:30px;text-align:center;'>
@@ -92,7 +85,7 @@
   </div>
 
   <%#---------------------------------------------------------RIHGT-------------------------------------------------------------%>
-  <div class='span3' style='margin-left:0;'>
+  <div class='mail_insight'>
     <%#日付での分類 %>
     <div class='date_list'>
       <div class='date_list_head'><i class='icon-calendar'></i> 日付で絞り込む</div>
@@ -134,4 +127,3 @@
 
   </div>
 </div>
-

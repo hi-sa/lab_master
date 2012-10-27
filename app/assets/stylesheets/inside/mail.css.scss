@@ -2,25 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
- /* サブナビゲーション 
-------------------------------- */
-div#sub_nav_inner_ml {
-  border-bottom: 1px solid #D1D1D1;
-  border-radius: 6px 6px 0 0; 
-  padding-left: 0px !important;
-}
-
-div#sub_nav_inner_ml ul.nav > li {
-  border-right: 1px solid #D1D1D1;
-  min-height: 50px;
-  line-height: 2;
-}
-
  /* Search Options 
 ------------------------------- */
 div#search_option_wrapper {
-  width: 95%;
-  margin: 0 auto 10px;
+  width: 100%;
+  margin-bottom: 5px;
 }
 
 div.search_option, div.date_list, div.insight {
@@ -64,19 +50,31 @@ div.search_box {
 div#all_mail_wrapper {
 }
 
+div.mail_list, div.attachment_list {
+  width: 878px;
+  float: left;
+}
+
+div.mail_insight, div.attachment_insight {
+  width: 277px;
+  margin-left: 15px;
+  float: left;
+}
+
+
 div.counter {
-  width:95%;
+  width: 100%;
   height: 20px;
   text-align: right;
-  margin: 0 auto 5px;
+  margin-bottom: 5px;
 }
 
 div.mail_wrapper {
   height: 30px;
-  width: 95%;
-  margin: 0 auto 5px;
+  width: 100%;
+  margin-bottom: 5px;
   border-radius: 3px;
-  //overflow: hidden;
+  overflow: hidden;
   border: 1px solid #d1d1d1;
   background: #EBEBEB;
   padding-top: 4px;
@@ -87,7 +85,6 @@ div.mail_wrapper div {
   font-weight: bold;
   min-height: 28px;
   line-height: 28px;
-  //overflow: hidden;
 }
 
 div.mail_parts {
@@ -123,9 +120,6 @@ div.mail_parts:last-child {
   border-right: none; 
 }
 
-div.date_list {
-}
-
 div.date_list_head, div.insight_head {
   border-bottom: 1px solid #ccc;
   color: #F89406;
@@ -135,7 +129,7 @@ div.date_list_head, div.insight_head {
 }
 
 div.date_list_contents, div.insight_contents {
-  padding: 6px 0;
+  padding: 10px 5px;
 }
 
 div.insight {

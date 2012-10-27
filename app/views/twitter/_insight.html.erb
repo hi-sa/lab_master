@@ -1,0 +1,78 @@
+<%= javascript_include_tag 'Highcharts/modules/exporting.js' %>
+
+<% if false %>
+  <%= "グループの一日の平均ツイート数:#{@avg_tweets[:group]}" %>
+  <%= "グループメンバーの一日の平均ツイート数:#{@avg_tweets[:person]}" %>
+<% end %>
+
+<% if @avg_tweets_in_all_groups %>
+  <%= "グループ全体のツイート比率:#{@avg_tweets_in_all_groups}" %>
+<% end %>
+
+<% # ツイート数のランキング バーチャート %>
+<%= render 'tweet_rank_bar', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets %>
+
+<% # クライアント利用率ランキング パイチャート %>
+<%= render 'client_rank_pie', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets, rank_client: @rank_client %>
+
+<% # ツイートに含まれるURLとハッシュタグ %>
+<div id='url_and_hash' class='clearfix'>
+  <div id='url_tweets' class='heightLine'>
+    <div class='insight_content_header'>
+      <i class='icon-link'></i> ツイートに含まれるURL最新10件
+    </div>
+    <div class='insight_content_body'>
+      <% @url_tweets.each do |tweet| %>
+        <%= image_tag tweet.image_url, width: "20", height: "20" %>
+        <%= link_to "#{tweet.site_title}", "#{tweet.site_url[2..-3]}", class: "link" %>
+        <br><br>
+      <% end %>
+    </div>
+  </div>
+  <div id='hash_tweets' class='heightLine'>
+    <div class='insight_content_header'>
+      <i class='icon-tag'></i> 人気のハッシュタグ
+    </div>
+    <div class='insight_content_body'>
+      <ul id='hashtag_list'>
+        <% @hashtags.each do |hashtag| %>
+          <% hashtag.hashtag =~ /"(.+)"/ %>
+          <li>
+            <%= link_to "#{$+}", "https://twitter.com/search?q=\"#{$+[1..-1]}\""%>
+            <%= "(#{hashtag.counter})" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% # ツイート時間帯　カラムチャート %>
+<%= render 'tweet_time_column', tweets: @tweets, tweet_time: @tweet_time, sum_tweets: @sum_tweets %>
+
+<% # 最後にツイートした時間からの経過時間 %>
+<div id='transmit_time' class='tweets_insight'>
+  <div class='insight_content_header'>
+    <i class='icon-time'></i> 最後のツイートから経過した時間 
+  </div>
+  <div class='insight_content_body'>
+    <ul class='unstyled clearfix'>
+      <% @transmit_time.each do |tweet| %>
+        <li class='tt_wrapper'>
+          <div class='tt_inner clearfix'>
+            <div class='tt_picture'>
+              <a href="#" rel='tooltip' data-placement='top' title='<%= tweet.text %>' class='text_black'><%= image_tag tweet.image_url, class: "image_40" %></a>
+            </div>
+            <div class='tt_data'>
+              <span class='text_small'>@<%= tweet.screen_name %></span><br>
+              <span class='text_red semi_big_text'><%= convert_minute_to_hour(tweet.transmit_time) %></span>が経過<br>
+              <!--（平均：<span class='text_red bold semi_big_text'>1/1600(分) ツイート</span>）-->
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<% # 平均ツイート間隔を求めることができたら最強 %>

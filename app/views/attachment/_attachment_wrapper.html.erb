@@ -1,0 +1,33 @@
+<div class='mail_wrapper clearfix'>
+  <% # 送信者 %>
+  <div class='mail_parts file_from'>
+    <i class='icon-user text_red big_text v_middle'></i> <%= truncate(attach.mail.sender[2..-3], length: 25, omission: '..') %>
+  </div>
+  <% # ファイル名 %>
+  <div class='mail_parts file_title'>
+    <% # 読み込み可能ファイルであれば、リンクを付与する %>
+    <% if READABLE_FORMATS.include?(attach.ext) || READABLE_IMAGE_FORMATS.include?(attach.ext)%>
+      <a href='<%= attachment_path(attach.id) %>'>
+        <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(attach.filename, length: 50, omission: '..') %>
+      </a>
+    <% else %>
+      <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(attach.filename, length: 50, omission: '..') %>
+    <% end %>
+  </div>
+  <% # 送信日 %>
+  <div class='mail_parts file_date center_text'>
+    <i class='icon-calendar text_blue big_text v_middle'></i> <%= attach.mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
+  </div>
+  <% # 元のメール %>
+  <div class='mail_parts file_mail center_text'>
+    <a href='<%= mail_path(attach.mail_id) %>' rel='tooltip' data-placement='top' title='<%= t 'see_mail' %>' class='text_black'>
+      <%= raw("<i class='icon-envelope big_text'></i>") %>
+    </a>
+  </div>
+  <% # ダウンロード %>
+  <div class='mail_parts download center_text'>
+    <a href="/attachment/download/<%= attach.id%>" rel='tooltip' data-placement='top' title='<%= t 'download' %>' class='text_black'>
+      <%= raw("<i class='icon-download-alt big_text'></i>") %>
+    </a>
+  </div>
+</div>

@@ -1,9 +1,55 @@
+<div id='header' class='clearfix'>
+  <div id='header_inner' class='clearfix'>
+    <div id='logo'>
+      <%= link_to "Lab Master", root_path, class: "brand", id: "logo" %>
+    </div>
+    <div id='navigation_menu'>
+      <div id='contents_menu'>
+        <ul class='clearfix' style='margin:0;'>
+          <li><%= link_to (raw(t "nav.facebook")), facebook_index_path, class: 'nav_item' %></li>
+          <li><%= link_to (raw(t "nav.twitter")), twitter_index_path, class: 'nav_item' %></li>
+          <li><%= link_to (raw(t "nav.mail")), mail_index_path, class: 'nav_item' %></li>
+          <li><%= link_to (raw(t "nav.file")), attachment_index_path, class: 'nav_item' %></li>
+          <li><%= link_to (raw(t "nav.blog")), "#", class: 'nav_item' %></li>
+          <li><%= link_to (raw(t "nav.group")), group_index_path, class: 'nav_item' %></li>
+        </ul>
+      </div>
+      <div id ='user_menu'>
+        <ul class='pull-right' data-dropdown='dropdown'> 
+          <!-- login -->
+          <% if logged_in? %>
+            <li class="dropdown" id="menu1">
+              <a href="#menu1" class="dropdown-toggle" data-toggle="dropdown" data-target="#" style='color:#ccc;'>
+                <%= image_tag "#{current_user.image_url}", class: "topBarIcon", width:"30", height:"30" %>
+                <%= raw(" #{current_user.screen_name} <b class='caret' style='vertical-align:baseline;'></b>") %>
+              </a>
+              <ul class="dropdown-menu" id='user_menu_list' style='min-width:120px;'>
+                <li>
+                  <%= link_to 'logout', logout_path %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <% #未ログイン %>
+            <li> 
+              <%= link_to image_tag('sign-in-with-twitter-gray.png'), "auth/twitter", id: 'login_link' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if false %>
 <% #TOPバー 移動式 %>
+<!--
 <div class="navbar navbar-inverse navbar-static-top">
   <div id="global_nav" class="navbar-inner">
     <div class="container">
       <%= link_to "Lab Master", root_path, class: "brand", id: "logo" %>
       <div class="nav-collapse collapse">
+
         <ul class="nav">
           <li><%= link_to (raw(t "nav.facebook")), facebook_index_path %></li>
           <li><%= link_to (raw(t "nav.twitter")), twitter_index_path %></li>
@@ -27,7 +73,7 @@
             </ul>
             </li>
           <% else %>
-            <!-- 未ログイン -->
+            <% #未ログイン %>
             <li> 
             <%= link_to "ログイン", "auth/twitter" %>
             </li>
@@ -37,6 +83,8 @@
     </div>
   </div>
 </div>
+-->
+<% end %>
 <% if false %>
   <% if fb_logged_in? -%>
     <%= link_to 'logout', logout_path %>

@@ -4,7 +4,7 @@
 
 
 <%# File サブナビゲーション %>
-<div class='navbar sub_nav'>
+<div class="navbar sub_nav">
   <div class='navbar-inner navbar-inner-org'>
     <ul class='nav'>
       <li><%= link_to (raw(t 'sub_nav.attachments')), attachment_index_path %></li>
@@ -13,9 +13,9 @@
   </div>
 </div>
 
-<div id='fluid_div' class='row-fluid'>
+<div class='contents clearfix'>
   <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
-  <div class='span9'>
+  <div class='attachment_list'>
 
     <%#-----SEARCH OPTION------%>
     <div id='search_option_wrapper'>
@@ -61,36 +61,10 @@
           該当ファイル：全<span class='big_text text_red bold'> <%= @showed_files_num %> </span>件
         </div>
         <% @attachments.each do |attach| %>
-          <div class='mail_wrapper clearfix'>
-            <% # 送信者 %>
-            <div class='mail_parts file_from'>
-              <i class='icon-user text_red big_text v_middle'></i> <%= truncate(attach.mail.sender[2..-3], length: 25, omission: '..') %>
-            </div>
-            <% # 件名 %>
-            <div class='mail_parts file_title'>
-              <a href='<%= attachment_path(attach.id) %>'>
-                <i class='icon-bookmark text_orange big_text v_middle'></i> <%= truncate(attach.filename, length: 50, omission: '..') %>
-              </a>
-            </div>
-            <% # 送信日 %>
-            <div class='mail_parts file_date center_text'>
-              <i class='icon-calendar text_blue big_text v_middle'></i> <%= attach.mail.send_at.strftime '%Y-%m-%d %H:%M:%S' %>
-            </div>
-            <% # 元のメール %>
-            <div class='mail_parts file_mail center_text'>
-              <a href='<%= mail_path(attach.mail_id) %>' rel='tooltip' data-placement='top' title='<%= t 'see_mail' %>' class='text_black'>
-                <%= raw("<i class='icon-envelope big_text'></i>") %>
-              </a>
-            </div>
-            <% # ダウンロード %>
-            <div class='mail_parts download center_text'>
-              <a href="/attachment/download/<%= attach.id%>" rel='tooltip' data-placement='top' title='<%= t 'download' %>' class='text_black'>
-                <%= raw("<i class='icon-download-alt big_text'></i>") %>
-              </a>
-            </div>
-          </div>
+          <%= render 'attachment_wrapper', attach: attach %>  
         <% end %>
       <% else %>
+        <%# ファイルが存在しない場合 %>
         <div class='mail_wrapper' style='line-height:30px;text-align:center;'>
           <span class='text_red'><i class='icon-warning-sign text_red'></i> <%= t 'file_not_found' %></span>
         </div>
@@ -103,7 +77,7 @@
   </div>
 
   <%#-------------------------------------------------------RIGHT---------------------------------------------------------------%>
-  <div class='span3' style='margin-left:0;'>
+  <div class='attachment_insight'>
     <div class='date_list'>
       <div class='date_list_head'><i class='icon-calendar'></i> 日付で絞り込む</div>
       <div class='date_list_contents'>

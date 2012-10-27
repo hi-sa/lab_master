@@ -14,18 +14,30 @@
   <div class='navbar-inner navbar-inner-org'>
     <ul class="nav">
       <li class="active_org"><%= link_to (raw(t "sub_nav.timeline")), twitter_index_path %></li>
-      <li><%= link_to (raw(t "sub_nav.insight")), twitter_path(id="all") %></li>
+      <li class='dropdown'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.insight') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='tw_group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li><%= link_to '全グループ', twitter_path('all') %></li>
+          <% @main_groups.each do |group| %>
+            <li><%= link_to group.name, twitter_path(group.id) %></li>
+          <% end %>
+        </ul>
+      </li>
       <li><%= link_to (raw(t "sub_nav.search")), "" %></li>
     </ul>
   </div><%# #icon-envelope %>
 </div><%# #sub_nav %>
-
 <%# tweet全てを囲うdiv %>
-<div id='fluid_div' class='row-fluid'>
-  <% i = 0 %>
-  <% #3グループのみ出力する（とりあえず） %>
+<% i = 0 %>
+<% #3グループのみ出力する（とりあえず） %>
+<% if false %>
   <% 3.times do %>
     <%= render 'tweet_box', tweets: @tweets[i], num: i, main_group: @main_groups %>
     <% i += 1 %>
   <% end %>
+<% end %>
+<div class='contents clearfix'>
+  <%= render 'embedded_2nd_tweet_box', tweets: @tweets[i], num: i, main_group: @main_groups %>
+  <%= render 'embedded_3rd_tweet_box', tweets: @tweets[i], num: i, main_group: @main_groups %>
+  <%= render 'embedded_es_tweet_box', tweets: @tweets[i], num: i, main_group: @main_groups %>
 </div>

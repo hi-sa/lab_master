@@ -1,4 +1,3 @@
-<div class="span4 size4">
   <div class="tweet_box">
     <%# 投稿ボックスのヘッダー %>
     <div class="tweet_box_title">
@@ -26,7 +25,7 @@
             <div class="member_tweet">
               <%= link_to feed.fb_member.fb_name, "http://facebook.com/#{feed.fb_id}", class: "#{COLOR[num]} bold" %><br>
               <% case feed.post_type %>
-              <% # type = status %>
+                <% # type = status %>
               <% when "status" %>
                 <% if feed.fbu_post_status %>
                   <% if feed.fbu_post_status.message.present? %>
@@ -39,7 +38,7 @@
                 <% else %>
                   <%= "この投稿は削除されました" %>
                 <% end %>
-              <% #type = link %>
+                <% #type = link %>
               <% when "link" %>
                 <% if feed.fbu_post_link %>
                   <% if feed.fbu_post_link.story.present? %>
@@ -66,7 +65,7 @@
                 <% else %>
                   <%= "※ この投稿は削除されました" %>
                 <% end %>
-              <% # type = photo %>
+                <% # type = photo %>
               <% when "photo" %>
                 <% if feed.fbu_post_picture %>
                   <% if feed.fbu_post_picture.story.present? %>
@@ -87,7 +86,7 @@
                 <% else %>
                   <%= "※この投稿は削除されました" %>
                 <% end %>
-              <% # type = video %>
+                <% # type = video %>
               <% when "video" %>
                 <% if feed.fbu_post_video %>
                   <% if feed.fbu_post_video.story.present? %>
@@ -111,9 +110,8 @@
               </div>
             </div><%# .member_tweet %>
           </li>
-        <%# end %>
+          <%# end %>
         <% end %>
       </ul>
     </div>
   </div>
-</div>

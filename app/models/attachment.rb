@@ -115,4 +115,16 @@ class Attachment < ActiveRecord::Base
     self.find(file_id)
   end
 
+  def self.select_next_file(send_at)
+      self.joins(:mail).where("send_at > ?", send_at).order("send_at ASC").first
+  end
+
+  def self.select_prev_file(send_at)
+      self.joins(:mail).where("send_at < ?", send_at).order("send_at DESC").first
+  end
+
+
+
+
+
 end
