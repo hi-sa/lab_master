@@ -26,6 +26,8 @@ class Tweet < ActiveRecord::Base
   scope :top30, limit(30)
   scope :top100, limit(100)
 
+  # Kaminari(ページネーション)の設定。1ページに表示する件数
+  paginates_per 50
 
   def self.main_group_tweets
     # フィードを格納する配列の生成
@@ -105,7 +107,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.text LIKE ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,query,group_id])
     elsif data == 'hashtag'
       query = "%#{query}%"
@@ -116,7 +118,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.text LIKE ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,query,group_id])
     else
       query = "%#{query}%"
@@ -126,7 +128,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.text LIKE ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,query,group_id])
     end
     return tweets
@@ -141,7 +143,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
              WHERE t.text LIKE ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,query])
     elsif data == 'hashtag'
       query = "%#{query}%"
@@ -151,7 +153,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
              WHERE t.text LIKE ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,query])
     else
       query = "%#{query}%"
@@ -160,7 +162,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm USING(twitter_id) 
              WHERE t.text LIKE ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,query])
     end
     return tweets
@@ -175,7 +177,7 @@ class Tweet < ActiveRecord::Base
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,date,group_id])
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -185,7 +187,7 @@ class Tweet < ActiveRecord::Base
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,date,group_id])
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -194,7 +196,7 @@ class Tweet < ActiveRecord::Base
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,date,group_id])
     end
 
@@ -209,7 +211,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,date])
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -218,7 +220,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,date])
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -226,7 +228,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm USING(twitter_id) 
              WHERE DATE_FORMAT(t.tweet_at, '%Y%m%d') = ? 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,date])
     end
 
@@ -242,7 +244,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.twitter_id = ?
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,user,group_id])
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -252,7 +254,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.twitter_id = ?
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,user,group_id])
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -261,7 +263,7 @@ class Tweet < ActiveRecord::Base
              WHERE t.twitter_id = ?
              AND tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,user,group_id])
     end
 
@@ -276,7 +278,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
              WHERE t.twitter_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,user])
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -285,7 +287,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
              WHERE t.twitter_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,user])
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -293,7 +295,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm USING(twitter_id) 
              WHERE t.twitter_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,user])
     end
 
@@ -308,7 +310,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
              WHERE tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql([sql,group_id])
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -317,7 +319,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
              WHERE tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql([sql,group_id])
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -325,7 +327,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tw_members tm USING(twitter_id) 
              WHERE tm.group_id = ?
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql([sql,group_id])
     end
     return tweets 
@@ -338,7 +340,7 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tweets t USING(tweet_id) 
              INNER JOIN tw_members tm ON t.twitter_id = tm.twitter_id 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = UrlTweet.find_by_sql(sql)
     elsif data == 'hashtag'
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
@@ -346,14 +348,14 @@ class Tweet < ActiveRecord::Base
              INNER JOIN tweets t ON h.tweet_id = t.id 
              INNER JOIN tw_members tm ON h.twitter_id = tm.twitter_id 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Hashtag.find_by_sql(sql)
     else
       sql = "SELECT t.text,tm.image_url,t.twitter_id,t.source,t.tweet_at,tm.screen_name,tm.name
              FROM tweets t 
              INNER JOIN tw_members tm USING(twitter_id) 
              ORDER BY t.tweet_at DESC 
-             LIMIT 30;"
+             LIMIT 150;"
       tweets = Tweet.find_by_sql(sql)
     end
     return tweets 

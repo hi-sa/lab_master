@@ -1,0 +1,97 @@
+<div class='group_feed_insight'>
+  <% #投稿数 %>
+  <div id='post_num_wrapper'>
+    <table class='table-bordered'>
+      <thead>
+        <tr>
+          <th>全投稿数</th>
+          <th>今月の投稿数</th>
+          <th>先月の投稿数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @post_num %>件</td>
+          <td><%= @this_month_post_num %>件</td>
+          <td><%= @last_month_post_num%>件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% #投稿ユーザの円グラフ %>
+  <div id='post_num_users'>
+    <%= render 'post_num_users_pie' %>
+  </div>
+
+  <% #コメント数 %>
+  <div id='comment_num_wrapper'>
+    <table class='table-bordered'>
+      <thead>
+        <tr>
+          <th>全コメント数</th>
+          <th>今月のコメント数</th>
+          <th>先月のコメント数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @comment_num %>件</td>
+          <td><%= @this_month_comment_num %>件</td>
+          <td><%= @last_month_comment_num%>件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% #コメントユーザの円グラフ %>
+  <div id='comment_num_users'>
+    <%= render 'comment_num_users_pie' %>
+  </div>
+
+  <% #コメント数 %>
+  <div id='like_num_wrapper'>
+    <table class='table-bordered'>
+      <thead>
+        <tr>
+          <th>全いいね数</th>
+          <th>今月のいいね数</th>
+          <th>先月のいいね数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @like_num %>件</td>
+          <td><%= @this_month_like_num %>件</td>
+          <td><%= @last_month_like_num%>件</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% #コメントユーザの円グラフ %>
+  <div id='like_num_users'>
+    <%= render 'like_num_users_pie' %>
+  </div>
+
+  <div id='group_pictures'>
+    <div id='pictures_header'>
+      <i class='icon-group'></i> <%= "グループ「 #{@group_name.name} 」のアルバム" %>
+    </div>
+    <div id='pictures_body'>
+      <% @group_pictures.each do |picture| %>
+        <%= image_tag picture.picture %>
+      <% end %>
+    </div>
+  </div>
+
+  <div id='group_members'>
+    <div id='group_members_header'>
+      <i class='icon-group'></i> <%= "グループ「 #{@group_name.name} 」のメンバー一覧" %>
+    </div>
+    <div id='group_members_body'>
+      <% @group_members_info.each do |member| %>
+        <%= image_tag member.image_url %>
+      <% end %>
+    </div>
+  </div>
+
+  <%#= debug(@group_members_info) %>
+</div>

@@ -1,29 +1,25 @@
-  <div class="tweet_box">
-    <%# 投稿ボックスのヘッダー %>
-    <div class="tweet_box_title">
-      <div class="title clearfix">
-        <div class="group_name">
-          <h5><%= main_group[num].name %></h5>
-        </div>
-        <div class="option_menu">
-          <h6><span class="icon-refresh right_text refresh"></span><%= t "refresh" %></h6>
-        </div>
-      </div>
+<div class="feed_box">
+  <%# ----- sub header ----- %>
+  <div class="feed_box_header">
+    <div class='feed_box_header_inner clearfix'>
+      <%= link_to "#{main_group[num].name}", facebook_path(main_group[num].id) %>
+      <span class='fb_logo'><i class='icon-facebook'></i></span>
     </div>
-    <%# 投稿ボックス %>
-    <div class="tweet_box_content">
-      <ul class="unstyled">
-        <% feeds.each do |feed| %>
-
-          <% #一時的にstatusを出現させなくさせている %>
-          <% #unless feed.post_type == "status" %>
-
-          <li class="member_tweet_wrapper clearfix">
+  </div>
+  <%# 投稿ボックス %>
+  <div class="feed_box_body" style='min-height:700px;'>
+    <ul class="unstyled">
+      <% feeds.each do |feed| %>
+        <% #一時的にstatusを出現させなくさせている %>
+        <% unless feed.post_type == "status" %>
+          <!-- 共通要素 ここから -->
+          <li class="member_post_wrapper clearfix">
             <div class="member_picture">
               <%= link_to image_tag(feed.fb_member.image_url, class: "image_40"), "http://facebook.com/#{feed.fb_id}" %>
             </div>
-            <div class="member_tweet">
-              <%= link_to feed.fb_member.fb_name, "http://facebook.com/#{feed.fb_id}", class: "#{COLOR[num]} bold" %><br>
+            <div class="member_post">
+              <%= link_to feed.fb_member.fb_name, "http://facebook.com/#{feed.fb_id}", class: "#{COLOR[num]}" %><br>
+              <!-- 共通要素 ここまで -->
               <% case feed.post_type %>
                 <% # type = status %>
               <% when "status" %>
@@ -110,8 +106,9 @@
               </div>
             </div><%# .member_tweet %>
           </li>
-          <%# end %>
+          <%# unless閉じるend %>
         <% end %>
-      </ul>
-    </div>
+      <% end %>
+    </ul>
   </div>
+</div>

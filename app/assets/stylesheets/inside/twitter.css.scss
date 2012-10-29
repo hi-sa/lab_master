@@ -53,6 +53,7 @@ div.tweets_header_name_insight {
 /* tweet_insight と混同注意*/
 div.tweets_insight {
   padding: 8px;
+  background-color: #f8f8f8;
 }
 
 li.tweet_data_insight {
@@ -270,10 +271,6 @@ div#tweet_search_options {
   margin: 10px 0 0 15px !important;
 }
 
-div#subnav_search form {
-  margin: 0 !important;
-}
-
 div#tweet_date {
   width: 48%;
   float: left;
@@ -309,11 +306,3 @@ div.tweet_not_found {
   color: red;
   background: whiteSmoke;
 }
-
-
-
-
-
-
-
-

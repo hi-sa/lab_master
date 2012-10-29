@@ -31,12 +31,12 @@
                  //}
                },
                subtitle: {
-                 text: <%= "'グループ「#{tweets[:group_name]}」'" %>
+                 text: <%= "'グループ「#{@group_name}」'" %>
                },
         //X軸
         xAxis: {
           categories: [
-            <% rank_tweets.each do |tweet| %>
+            <% @rank_tweets.each do |tweet| %>
               <%= "'#{tweet.screen_name}'," %>
             <% end %>
           ],
@@ -109,7 +109,7 @@
           },
           name: 'ツイート数(%)',
           data: [
-                <% rank_tweets.each do |tweet| %>
+                <% @rank_tweets.each do |tweet| %>
                   <%#= "#{tweet.counter}," %>
                   <%= "#{tweet.pct}," %>
                 <% end %>

@@ -1,10 +1,10 @@
 <%= javascript_include_tag 'Highcharts/modules/exporting.js' %>
 
 <% # ツイート数のランキング バーチャート %>
-<%= render 'tweet_rank_bar', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets %>
+<%= render 'tweet_rank_bar' %>
 
 <% # クライアント利用率ランキング パイチャート %>
-<%= render 'client_rank_pie', tweets: @tweets, rank_tweets: @rank_tweets, sum_tweets: @sum_tweets, rank_client: @rank_client %>
+<%= render 'client_rank_pie' %>
 
 <% # ツイートに含まれるURLとハッシュタグ %>
 <div id='url_and_hash' class='clearfix'>
@@ -39,7 +39,7 @@
 </div>
 
 <% # ツイート時間帯　カラムチャート %>
-<%= render 'tweet_time_column', tweets: @tweets, tweet_time: @tweet_time, sum_tweets: @sum_tweets %>
+<%= render 'tweet_time_column' %>
 
 <% # 最後にツイートした時間からの経過時間 %>
 <div id='transmit_time' class='tweets_insight'>
@@ -65,5 +65,3 @@
     </ul>
   </div>
 </div>
-
-<% # 平均ツイート間隔を求めることができたら最強 %>

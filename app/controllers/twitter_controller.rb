@@ -8,31 +8,19 @@ class TwitterController < ApplicationController
     # メイングループの最新[hoge]件のツイートを取得(group数は3にしておく)
     @tweets = Tweet.main_group_tweets
 
-    # JOINをして一発で取得するか,アソシエーションを使って取得するかで悩み中（取得ツイート数にもよると思うが、ひとまずはJOINの利用をする）
-    #@tweets_2nd = Tweet.where(:twitter_id => tw_id_2nd).order('tweet_at DESC').limit(100)
-    # 2期生のツイート
-    #tw_id_2nd = GroupMember.array_twitter_ids(1)
-    #@tweets_2nd = Tweet.where(:twitter_id => tw_id_2nd).joins('INNER JOIN tw_members USING(twitter_id)')
-    #              .select('tweets.*,tw_members.*').order('tweet_at DESC').limit(50)
-    # 3期生のツイート
-    #tw_id_3rd = GroupMember.array_twitter_ids(2)
-    #@tweets_3rd = Tweet.where(:twitter_id => tw_id_3rd).joins('INNER JOIN tw_members USING(twitter_id)')
-    #              .select('tweets.*,tw_members.*').order('tweet_at DESC').limit(50)
-    # eスクール生、コーチ陣のツイート
-    #tw_id_es = GroupMember.array_twitter_ids(3)
-    #@tweets_es = Tweet.where(:twitter_id => tw_id_es).joins('INNER JOIN tw_members USING(twitter_id)')
-    #             .select('tweets.*,tw_members.*').order('tweet_at DESC').limit(50)
-
   end
 
   def show 
+    # URLパラメータ一覧
+    # params[:id] グループID 
+    # params[:d] 全てorハッシュタグ付きorURL付き 
+    # params[:u] ユーザー 
+    # params[:q] クエリ検索 
+    # params[:dt] 日付
 
-    # 存在するグループか否か
-    #redirect_to root_path unless Group.is_group_id?(params[:id])
+    # 存在するグループか否か。存在しない場合はall
     params[:id] = 'all' unless Group.is_group_id?(params[:id])
     params[:d] = 'all' unless params[:d]
-    # u, d, dt, q
-
     search_options = params
 
     # メイングループの取得
@@ -42,8 +30,9 @@ class TwitterController < ApplicationController
     @group_members = TwMember.get_members(params[:id])
 
     # ツイート情報の取得
-    #@tweets = Tweet.select_tweets(params[:id])
-    @tweets = Tweet.select_tweets(params)
+    tweets = Tweet.select_tweets(params)
+    @tweets = Kaminari.paginate_array(tweets[:tweets]).page(params[:page]).per(30)
+    @group_name = tweets[:group_name]
 
     # ツイート数ランキング
     @rank_tweets = Tweet.rank_tweets_count(params[:id])

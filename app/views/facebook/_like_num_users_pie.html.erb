@@ -4,18 +4,19 @@
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'client_rank_pie',
+                renderTo: 'like_num_users_pie',
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false,
                 borderWidth: 1,
-                borderColor: "#ddd"
+                borderColor: "#ddd",
+                backgroundColor: "#f8f8f8"
             },
             title: {
-                text: <%= "'利用クライアント数の比較(%)'" %>
+                text: <%= "'いいね数の比較'" %>
             },
             subtitle: {
-                text: <%= "'グループ「#{@group_name}」'" %>
+text: <%= "'グループ「#{@group_name.name}」'" %>
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage}%</b>',
@@ -37,10 +38,10 @@
             },
             series: [{
                 type: 'pie',
-                name: 'グループ内でのTweet比率',
+                name: 'グループ内でのいいね比率',
                 data: [
-                      <% @rank_client.each do |tweet| %>
-                        <%= "['#{tweet.source.gsub(/<\/?[^>]*>/, "")}', #{tweet.pct.ceil}]," %>
+                      <% @like_users_ranking.each do |user| %>
+                        <%= "['#{user.fb_name}', #{user.counter}]," %>
                       <% end %>
                       ]
             }]
@@ -49,4 +50,4 @@
     
 });
 </script>
-<div id="client_rank_pie" style="width: 745px; height: 300px;"></div>
+<div id="like_num_users_pie" style="width: 687px; height: 350px;"></div>

@@ -1,0 +1,14 @@
+<div class='navbar sub_nav'>
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li class='active_org'><%= link_to (raw(t 'sub_nav.feed')), facebook_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>
+      <li class='dropdown'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.groups') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li><%= link_to '尾澤研究室', '/facebook/group/226826110680052' %></li>
+        </ul>
+      </li>
+    </ul>
+  </div><%# #icon-envelope %>
+</div><%# #sub_nav %>

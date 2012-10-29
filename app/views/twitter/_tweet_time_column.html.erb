@@ -13,11 +13,11 @@ $(function () {
                 text: '<%= "ツイートする時間の割合"%>'
             },
             subtitle: {
-                text: <%= "'グループ「#{tweets[:group_name]}」'" %>
+                text: <%= "'グループ「#{@group_name}」'" %>
             },
             xAxis: {
                 categories: [
-                <% tweet_time.each do |tweet| %>
+                <% @tweet_time.each do |tweet| %>
                   <%= "'#{tweet.hour}'," %>
                 <% end %>
                 ]
@@ -54,8 +54,8 @@ $(function () {
                 name: 'ツイート数(%)',
                 color: '#BF0B23',
                 data:[
-                     <% tweet_time.each do |tweet| %>
-                       <%= "#{(tweet.counter * 100) / sum_tweets}," %>
+                     <% @tweet_time.each do |tweet| %>
+                       <%= "#{(tweet.counter * 100) / @sum_tweets}," %>
                        <%#= "#{tweet.counter}," %>
                      <% end %>
                      ]
