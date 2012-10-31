@@ -2,7 +2,7 @@
   <%# ----- sub header ----- %>
   <div class="feed_box_header">
     <div class='feed_box_header_inner clearfix'>
-      <%= link_to "#{main_group[num].name}", facebook_path(main_group[num].id) %>
+      <%= link_to "#{@main_groups[num].name}", facebook_path(@main_groups[num].id) %>
       <span class='fb_logo'><i class='icon-facebook'></i></span>
     </div>
   </div>

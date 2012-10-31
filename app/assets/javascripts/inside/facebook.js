@@ -1,3 +1,14 @@
+
+$(function(){
+  　$("#datepicker").datepicker({
+    numberOfMonths: 1,
+    showButtonPanel: true,
+    //minDate: -20, 
+    maxDate: "+1M +10D"
+  });
+  $( "#datepicker" ).datepicker( "option", "dateFormat", "yymmdd" );
+});
+
 //ユーザー選択情報の取得
 $(document).ready(function(){
   gi = $('#gi').val(); 

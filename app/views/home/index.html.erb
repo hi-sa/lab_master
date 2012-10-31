@@ -1,27 +1,185 @@
-<script type="text/javascript">
-  $(function(){
-      $('a.media').media();
-      $('a.audio').media( { width: 300, height: 20 } );
-  });
-</script>
-<script type="text/javascript">
-  /*<![CDATA[*/
-$(document).ready(function() {
-    $('a.embed').gdocsViewer({width: 800, height: 550});
-    $('#embedURL').gdocsViewer();
-    });
-/*]]>*/
-</script>
-
-<h1>Home#index</h1>
-<p>このページでは各種項目の最新情報をダッシュボードのようにして載せる</p>
-
-<%= link_to 'グループ一覧へ','/group/' %>
-<div style="border:4px solid #000;width:800px;height:500px;">
-<a class="media { width:800, height:500 }" href="/ozaken/f_1346249775_1.pdf"></a>
+<%= stylesheet_link_tag "inside/home", :media => "all" %>
+<%= stylesheet_link_tag "inside/facebook", :media => "all" %>
+<%= javascript_include_tag "inside/home", :media => "all" %>
+<div class='navbar sub_nav'>
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li class='active_org'><%= link_to (raw("<i class='icon-th'></i> DashBoard")), root_path %></li>
+    </ul>
+    <div id='typewriter' class='page_desc'>尾澤研究室の最新情報を、Twitter、Facebook、メーリングリスト、アップロードファイルからチェック！ </div>
+  <div class='clear'></div>
+  </div>
 </div>
+<div class='contents clearfix'>
 
-<%= link_to 'PDF', action: 'pdf', class: 'media' %>
+  <% #------------------- Twitter -------------------# %>
+  <div class='home_tw'>
+    <a class="twitter-timeline" 
+       href="https://twitter.com/mogulla3/lab" 
+       data-widget-id="263462583380623360"
+       width='380'
+       height='745'
+       data-link-color='#0071FF'
+       data-related="benward,endform">尾澤研究室</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
 
-<a href="http://www19428ue.sakura.ne.jp:3000/ozaken/f_1346249775_1.pdf" class="embed">Google viewre</a>
-<button class='btn'>どうなるかな</button>
+  <% #------------------- Facebook -------------------# %>
+  <div class="feed_box">
+    <%# ----- sub header ----- %>
+    <div class="feed_box_header" style='padding:20px'>
+      <div class='feed_box_header_inner clearfix'>
+        <%= link_to "尾澤研究室", facebook_index_path %>
+        <span class='fb_logo' style='font-size: 235%;'><i class='icon-facebook'></i></span>
+      </div>
+    </div>
+    <%# 投稿ボックス %>
+    <!--<div class="feed_box_body" style='height:636px;'>-->
+    <div class="feed_box_body" style='height:681px;'>
+      <ul class="unstyled">
+        <% @feeds.each do |feed| %>
+          <% #一時的にstatusを出現させなくさせている %>
+          <% unless feed.post_type == "status" %>
+            <!-- 共通要素 ここから -->
+            <li class="member_post_wrapper clearfix">
+              <div class="member_picture">
+                <%= link_to image_tag(feed.fb_member.image_url, class: "image_40"), "http://facebook.com/#{feed.fb_id}" %>
+              </div>
+              <div class="member_post">
+                <%= link_to feed.fb_member.fb_name, "http://facebook.com/#{feed.fb_id}", class: "" %><br>
+                <!-- 共通要素 ここまで -->
+                <% case feed.post_type %>
+                  <% # type = status %>
+                <% when "status" %>
+                  <% if feed.fbu_post_status %>
+                    <% if feed.fbu_post_status.message.present? %>
+                      <%= auto_link feed.fbu_post_status.message %><br>
+                    <% elsif feed.fbu_post_status.story.present? %>
+                      <%= auto_link feed.fbu_post_status.story %><br>
+                    <% else %>
+                      <%= "取得不可能な投稿です" %>
+                    <% end %>
+                  <% else %>
+                    <%= "この投稿は削除されました" %>
+                  <% end %>
+                  <% #type = link %>
+                <% when "link" %>
+                  <% if feed.fbu_post_link %>
+                    <% if feed.fbu_post_link.story.present? %>
+                      <%= auto_link feed.fbu_post_link.story %>
+                    <% else %>
+                      <%= auto_link feed.fbu_post_link.message %>
+                    <% end %>
+                    <div class='link_wrapper clearfix'>
+                      <div class='link_left'>
+                        <%= link_to image_tag(feed.fbu_post_link.picture, class: "image_100"), feed.fbu_post_link.link if feed.fbu_post_link.picture.present? %>
+                      </div>
+                      <div class="link_right <%= feed.fbu_post_link.picture != '' ? "width_65" : "width_max" %>">
+                        <div class='link_title semi_big_text'>
+                          <%= link_to feed.fbu_post_link.name, feed.fbu_post_link.link, class: "semi_big_text" %>
+                        </div>
+                        <div class='link_caption'>
+                          <%= feed.fbu_post_link.caption %>
+                        </div>
+                        <div class='link_desc'>
+                          <%= feed.fbu_post_link.desc %>
+                        </div>
+                      </div>
+                    </div>
+                  <% else %>
+                    <%= "※ この投稿は削除されました" %>
+                  <% end %>
+                  <% # type = photo %>
+                <% when "photo" %>
+                  <% if feed.fbu_post_picture %>
+                    <% if feed.fbu_post_picture.story.present? %>
+                      <%= auto_link feed.fbu_post_picture.story %>
+                    <% else %>
+                      <%= auto_link feed.fbu_post_picture.message %>
+                    <% end %>
+                    <%= "#{feed.fbu_post_picture.caption}" if feed.fbu_post_picture.caption %>
+                    <div class='link_wrapper clearfix'>
+                      <div class='link_left'>
+                        <%= link_to image_tag(feed.fbu_post_picture.picture, class: "image_100"), feed.fbu_post_picture.link %>
+                      </div>
+                      <div class='link_right'>
+                        <%= "#{feed.fbu_post_picture.name}" if feed.fbu_post_picture.name %><br>
+                        <%= "#{feed.fbu_post_picture.desc}" if feed.fbu_post_picture.desc %>
+                      </div>
+                    </div>
+                  <% else %>
+                    <%= "※この投稿は削除されました" %>
+                  <% end %>
+                  <% # type = video %>
+                <% when "video" %>
+                  <% if feed.fbu_post_video %>
+                    <% if feed.fbu_post_video.story.present? %>
+                      <%= auto_link feed.fbu_post_video.story %>
+                    <% else %>
+                      <%= auto_link feed.fbu_post_video.message %>
+                    <% end %>
+                    <div class='video_wrapper'>
+                      <%= feed.fbu_post_video.name %><br>
+                      <%= feed.fbu_post_video.desc %><br>
+                      <%= link_to video_tag(feed.fbu_post_video.source, controls: true, poster: "#{feed.fbu_post_video.picture}", class: "video"), feed.fbu_post_video.link %>
+                    </div>
+                  <% else %>
+                    <%= "※ この投稿はおそらく削除されています" %>
+                  <% end %>
+                <% else %>
+                  <%= "取得できていないpost_typeの投稿です（#{feed.post_type}）" %>
+                <% end %>
+                <div class="right_text">
+                  <span><%= feed.created_time %></span>
+                </div>
+              </div><%# .member_tweet %>
+            </li>
+            <%# unless閉じるend %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% #------------------- Mail -------------------# %>
+  <div class='home_ml'>
+    <div class='home_widget_header clearfix'>
+      <%= link_to "メーリングリスト[ozaken-all]", mail_index_path %>
+      <%= image_tag 'gmail.png' %>
+    </div>
+    <div class='home_widget_body'>
+      <ul class='unstyled'>
+        <% @mails.each do |mail| %>
+          <li>
+            <%#= link_to mail.subject, "#{mail_index_path}#mail_#{mail.id}" %>
+            <a href='<%= "#{mail_index_path}#mail_#{mail.id}" %>' rel='tooltip' data-placement='top' title='<%= truncate(mail.body, length: 100, omission: '...') %>' class='text_black'>
+              <%= mail.subject %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <% #------------------- File -------------------# %>
+  <div class='home_fl'>
+    <div class='home_widget_header clearfix'>
+      <%= link_to "アップロードファイル", attachment_index_path %>
+      <%= image_tag 'file.png' %>
+    </div>
+    <div class='home_widget_body'>
+      <ul class='unstyled'>
+        <% @attachments.each do |attachment| %>
+          <li>
+            <% if READABLE_FORMATS.include?(attachment.ext) || READABLE_IMAGE_FORMATS.include?(attachment.ext)%>
+              <%= link_to attachment.filename, "#{attachment_path(attachment.id)}" %>
+            <% else %>
+              <%= attachment.filename %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+</div>

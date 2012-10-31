@@ -25,9 +25,16 @@ div.download {
 }
 
 div.viewer {
-  width: 85%;
+  width: 780px;
   margin: 0 auto;
+  float: left;
   overflow: scroll;
+}
+
+div.sidebar {
+  margin-left: 15px;
+  width: 375px;
+  float: right;
 }
 
 td.left_info {

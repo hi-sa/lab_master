@@ -8,7 +8,7 @@
   <% #3グループのみ出力する設定（将来的には横に無限に伸ばせてもいいかも） %>
   <% i = 0 %>
   <% 3.times do %>
-    <%= render 'feed_box', feeds: @feeds[i], num: i, main_group: @main_groups %>
+    <%= render 'feed_box', feeds: @feeds[i], num: i %>
     <% i += 1 %>
   <% end %>
 </div>

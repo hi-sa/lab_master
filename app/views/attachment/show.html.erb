@@ -12,25 +12,23 @@
   </div>
 </div>
 
-<div id='fluid_div' class='row-fluid'>
+<div class='contents clearfix'>
   <%#-------------------------------------------------------LEFT---------------------------------------------------------------%>
-  <div class='span8'>
-    <div class='viewer'>
-      <% if READABLE_FORMATS.include?(@file_info.ext) || READABLE_IMAGE_FORMATS.include?(@file_info.ext) %>
-        <% case @file_info.ext %>
-        <% when '.doc','.docx','.pdf' %>
-          <%= link_to '', "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
-        <% when '.png','.jpg','.jpeg','.JPEG','.JPG','.gif' %>
-          <%= image_tag "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
-        <% end %>
-      <% else %>
-        <%= t 'file_not_readable' %>
+  <div class='viewer'>
+    <% if READABLE_FORMATS.include?(@file_info.ext) || READABLE_IMAGE_FORMATS.include?(@file_info.ext) %>
+      <% case @file_info.ext %>
+      <% when '.doc','.docx','.pdf' %>
+        <%= link_to '', "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
+      <% when '.png','.jpg','.jpeg','.JPEG','.JPG','.gif' %>
+        <%= image_tag "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
       <% end %>
-    </div>
+    <% else %>
+      <%= t 'file_not_readable' %>
+    <% end %>
   </div>
 
   <%#-------------------------------------------------------RIGHT---------------------------------------------------------------%>
-  <div class='span4' style='margin-left:0;'>
+  <div class='sidebar'>
     <div class='file_info date_list'>
       <div class='file_info_head date_list_head'><i class='icon-cog'></i> <%= t 'file_info' %></div>
       <div class='file_info_contents date_list_contents'>

@@ -1,3 +1,75 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.home_tw {
+  width: 380px;
+  margin-left: 0;
+  float: left;
+}
+
+div.home_fb {
+  width: 380px;
+  float: left;
+}
+
+div.home_ml {
+  margin-bottom: 15px;
+}
+
+div.home_ml, div.home_fl {
+  width: 378px;
+  float: right;
+  border-radius: 6px;
+  background-color: #F8F8F8;
+  border: 1px solid #ddd;
+}
+
+div.home_widget_header {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background: -webkit-linear-gradient(top, white, #F2F2F2);
+  background: linear-gradient(to bottom, white, #F2F2F2);
+  background: o-linear-gradient(top, white, #F2F2F2);
+  background: moz-linear-gradient(top, white, #F2F2F2);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+div.home_widget_header a {
+  vertical-align: middle;
+  color: #444;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+div.home_widget_header img {
+  float: right;
+}
+
+div.home_widget_body {
+  padding: 10px;
+  height: 300px;
+  overflow: scroll;
+}
+
+div.home_widget_body li {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  font-size: 75%;
+}
+
+div.home_widget_body li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+div.page_desc {
+  float: right;
+  padding: 10px 15px;
+  line-height: 2;
+  height: 30px;
+}
+
+
