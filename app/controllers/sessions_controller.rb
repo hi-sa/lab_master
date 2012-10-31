@@ -11,6 +11,12 @@ class SessionsController < ApplicationController
     #ユーザーが既に登録されているかをチェックする
     user = User.find_by_twitter_id("#{auth['uid']}")
 
+    #尾澤研究室のメンバー以外は弾く
+    ozaken_members = GroupMember.make_ozaken_members2array
+    unless ozaken_members.include?(auth['uid'].to_i)
+      redirect_to root_url and return
+    end
+
     if user 
       #既にUsersテーブルに登録されている場合
       session[:user_id] = user.id

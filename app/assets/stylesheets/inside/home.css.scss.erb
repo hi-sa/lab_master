@@ -1,0 +1,166 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.home_tw {
+  width: 380px;
+  margin-left: 0;
+  float: left;
+}
+
+div.home_fb {
+  width: 380px;
+  float: left;
+}
+
+div.home_ml {
+  margin-bottom: 15px;
+}
+
+div.home_ml, div.home_fl {
+  width: 378px;
+  float: right;
+  border-radius: 6px;
+  background-color: #F8F8F8;
+  border: 1px solid #ddd;
+}
+
+div.home_widget_header {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background: -webkit-linear-gradient(top, white, #F2F2F2);
+  background: linear-gradient(to bottom, white, #F2F2F2);
+  background: o-linear-gradient(top, white, #F2F2F2);
+  background: moz-linear-gradient(top, white, #F2F2F2);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+div.home_widget_header a {
+  vertical-align: middle;
+  color: #444;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+div.home_widget_header img {
+  float: right;
+}
+
+div.home_widget_body {
+  padding: 10px;
+  height: 300px;
+  overflow: scroll;
+}
+
+div.home_widget_body li {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+  font-size: 75%;
+}
+
+div.home_widget_body li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+div#top_wrapper {
+  width: 930px;
+  padding: 15px;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+div#top_desc {
+  float: left;
+  width: 500px;
+  padding: 20px;
+}
+
+div#top_desc h1 {
+  margin-bottom: 15px;
+}
+
+div#top_image {
+  float: right;
+  width: 380px;
+  height: 260px;
+  position: relative;
+  margin-top: 78px;
+}
+
+div#top_image > div {
+  width: 128px;
+  height: 128px;
+  position: absolute;
+}
+
+div#image_1{
+  top: 0;
+  left: 0;
+  background-image: url(<%= image_path "twitter.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+div#image_2{
+  top: 0;
+  right: 0;
+  background-image: url(<%= image_path "doc.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+div#image_3{
+  bottom: 0;
+  left: 0;
+  background-image: url(<%= image_path "rss.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+div#image_4{
+  bottom: 0;
+  right: 0;
+  background-image: url(<%= image_path "pdf.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+div#image_5{ 
+  top: 0;
+  right: 33%;
+  background-image: url(<%= image_path "gmail3.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+div#image_6{ 
+  bottom: 0;
+  right: 33%;
+  background-image: url(<%= image_path "facebook.png" %>);
+  background-repeat: no-repeat;
+  background-size: 100px 100px;
+}
+
+
+
+div#top_one {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+}
+
+div#icon_list {
+  padding: 20px;
+}
+
+div#icon_list img {
+  margin-bottom: 3px;
+}
+
+div#available_users {
+  border-bottom: 1px solid #444;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  font-size: 120%;
+}
+

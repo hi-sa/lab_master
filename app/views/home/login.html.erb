@@ -1,1 +1,31 @@
-<h1>ログインしろカス！！！</h1>
+<%= stylesheet_link_tag 'inside/home', :media => 'all' %>
+<div id='top_wrapper'>
+  <div id='top_one' class='clearfix'>
+    <div id='top_desc'>
+      <h1>Lab Masterへようこそ</h1>
+      <p>Lab Master（ラボ・マスター）は早稲田大学尾澤研究室で利用されているWebアプリケーションを統合したサービスです。</p>
+      <p>Twitter、Facebook、メール、ファイル共有サービス、ブログ等様々なアプリケーションをLab Masterひとつで管理・閲覧できます。たくさんのアプリケーションが利用され、その管理に苦しむ方にはうってつけのサービスになっています。また、研究室の仲間たちの活動状況を今までよりももっと、しかも短時間で簡単に知ることができるようになるかもしれません。</p>
+      <p>利用者は早稲田大学尾澤研究室の所属者限定です。その他の方はログインすることはできません。万が一、研究室所属者であるにもかかわらずログインできない場合は開発者に一報をお願いします。</p>
+      <p>以下に、Lab Masterを利用できるTwitterアカウントのアイコンをリストアップしておきます。（一部、アイコンのバージョンが古い方がいるかもしれません。すいません、そのうち更新します、多分。）</p>
+      <p>※最後に 2012年11月1日現在、Lab Masterは開発途中のアプリケーションです。予期しない動作やすっからかんのページがありますがご了承ください。でも、なんだかおかしいと思った点はできるだけ全て開発者の人に伝えてもらえると非常に嬉しいです。</p>
+      <%= link_to (raw("<button class='btn btn-primary btn-large' style='margin-top:10px;'><i class='icon-twitter'></i> Sign in with Twitter</button>")), 'auth/twitter', id: 'login_link' %> 
+    </div>
+    <div id='top_image'>
+      <div id='image_1'></div>
+      <div id='image_2'></div>
+      <div id='image_3'></div>
+      <div id='image_4'></div>
+      <div id='image_5'></div>
+      <div id='image_6'></div>
+    </div>
+  </div>
+  <div id='icon_list'>
+    <div id='available_users'>
+      Lab Master利用可能ユーザー
+    </div>
+    <% @tw_members.each do |member| %>
+      <%= image_tag member.image_url, class:'image_40', title: member.screen_name %>
+    <% end %>
+  </div>
+</div>
+

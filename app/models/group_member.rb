@@ -7,7 +7,6 @@ class GroupMember < ActiveRecord::Base
   belongs_to :fb_member
   belongs_to :blog_member
   belongs_to :group
-  #has_and_belongs_to_many :groups
 
   # 指定されたグループに所属するメンバーのtwitter_idを配列で返す
   def self.array_twitter_ids(group_id)
@@ -20,13 +19,14 @@ class GroupMember < ActiveRecord::Base
     return id_array
   end
 
-  def ins_method
-    hoge = "hoge"
-    return
-  end
-
-  def self.cls_method
-    return
+  # ozakenメンバーのtwitteridを配列にして渡す
+  def self.make_ozaken_members2array
+    ozakens = Array.new
+    members = GroupMember.select(:twitter_id).all
+    members.each do |member|
+      ozakens << member.twitter_id
+    end
+    return ozakens
   end
   
 end
