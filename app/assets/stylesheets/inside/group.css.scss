@@ -1,3 +1,65 @@
 // Place all the styles related to the group controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+div#group_list {
+  width: 1170px;
+}
+
+div.lm_group {
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+div.lm_group:last-child {
+  border-bottom:1px solid #ddd;
+}
+
+div.lm_group_item {
+  float: left;
+  border-right: 1px solid #ddd;
+  padding:15px;
+  /*width: 232.8px*/
+}
+
+div.lm_group_item:last-child {
+  border-right: none;
+}
+
+/*1164*/
+div.lm_group_name {
+  width: 200px;
+}
+div.lm_group_desc {
+  width: 270px;
+}
+div.lm_group_members {
+  width: 270px;
+}
+div.lm_group_createdat {
+  width: 154px;
+}
+div.lm_group_owner {
+  width: 120px;
+}
+div.lm_title {
+  float:left;
+}
+
+div#lm_title_wrapper {
+  width: 1170px;
+  border: 1px solid #ddd;
+  color: #fff;
+  background-color: #1b1b1b;
+}
+
+div#lm_title_wrapper > div {
+  text-align: center;
+}
+
+div.lm_group_members a {
+  color: #0071FF !important;
+}

@@ -1,26 +1,42 @@
-<h1>Group#index</h1>
-<p>Find me in app/views/group/index.html.erb</p>
+<%= stylesheet_link_tag "inside/group", :media => "all" %>
 
-<%= link_to "新規グループの作成",new_group_path %>
+<%# Group サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li class='active_org'><%= link_to (raw(t 'sub_nav.allgroups')), group_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.create_group')), '#' %></li>
+      <li><%= link_to (raw(t 'sub_nav.edit_group')), '#' %></li>
+    </ul>
+    <div id='typewriter' class='page_desc'>Lab Master内で作られたグループの一覧だよ！ </div>
+  </div>
+</div>
 
-<p>作成したグループの一覧</p>
-
-<% if false %>
-<% @groups.each do |g| %>
-  <%= g.name %>
-  <%= g.description %>
-  <%= g.created_at %>
-  <a href="#">編集する</a>
-  <a href="#">削除する</a>
-  <br />
-<% end %>
-
-<% @group_members.each do |gm| %>
-  <%= gm.name %> 
-<% end %>
-<% end %>
-<br /><br />
-
-<% @groups.each do |gm| %>
-  <%= gm.name %>
-<% end %>
+<div class='contents clearfix'>
+  <div id='group_list'>
+    <div id='lm_title_wrapper' class='clearfix'>
+      <div class='lm_group_item lm_group_name'>グループ名</div>
+      <div class='lm_group_item lm_group_desc'>グループの説明</div>
+      <div class='lm_group_item lm_group_members'>グループのメンバー数</div>
+      <div class='lm_group_item lm_group_createdat'>作成日</div>
+      <div class='lm_group_item lm_group_owner'>作成者</div>
+    </div>
+    <% @groups.each do |group| %>
+      <div class='lm_group clearfix'>
+        <div class='heightLine lm_group_item lm_group_name'><%= group.name %></div>
+        <div class='heightLine lm_group_item lm_group_desc'><%= group.description %></div>
+        <div class='heightLine lm_group_item lm_group_members'>
+        <% members = '' %>
+        <% group.group_members.each do |member| %>
+          <% members << "#{member.name}<br>" %>
+        <% end %>
+          <a href='#' rel='tooltip' data-placement='top' title='<%= members %>'>
+            <%= "#{group.group_members.count}人" %>
+          </a>
+        </div>
+        <div class='heightLine lm_group_item lm_group_createdat'><%= group.created_at.strftime '%Y-%m-%d %H:%M:%S' %></div>
+        <div class='heightLine lm_group_item lm_group_owner'><%= group.user.name %></div>
+      </div>
+    <% end %>
+  </div>
+</div>
