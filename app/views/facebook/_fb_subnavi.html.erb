@@ -2,7 +2,8 @@
   <div class='navbar-inner navbar-inner-org'>
     <ul class='nav'>
       <li class='active_org'><%= link_to (raw(t 'sub_nav.feed')), facebook_index_path %></li>
-      <li><%= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>
+      <!--<li><%#= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>-->
+      <li><%= link_to (raw(t 'sub_nav.insight')), '#' %></li>
       <li class='dropdown'>
         <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.groups') %><span class="caret" style='vertical-align:baseline;'></span></a>
         <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -10,5 +11,6 @@
         </ul>
       </li>
     </ul>
+    <div id='typewriter' class='page_desc'>Facebook上のみんなのアクティビティをチェック！グループ「尾澤研究室」も要チェックだよ！ </div>
   </div><%# #icon-envelope %>
 </div><%# #sub_nav %>

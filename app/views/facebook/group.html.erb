@@ -8,7 +8,8 @@
   <div class='navbar-inner navbar-inner-org'>
     <ul class='nav'>
       <li><%= link_to (raw(t 'sub_nav.feed')), facebook_index_path %></li>
-      <li><%= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>
+      <!--<li><%#= link_to (raw(t 'sub_nav.insight')), facebook_path(id='all') %></li>-->
+      <li><%= link_to (raw(t 'sub_nav.insight')), '#' %></li>
       <li class='dropdown active_org'>
         <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.groups') %><span class="caret" style='vertical-align:baseline;'></span></a>
         <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -25,6 +26,7 @@
         </div>
       </li>
     </ul>
+    <div id='typewriter' class='page_desc'>Facebookグループ「尾澤研究室」の投稿を振り返ることができるよ！ </div>
   </div><%# #icon-envelope %>
 </div><%# #sub_nav %>
 <div class='contents clearfix'>

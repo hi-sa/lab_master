@@ -15,3 +15,6 @@
 //= require twitter/bootstrap
 //= require_directory .
 
+$(document).ready(function() {
+  $("div#typewriter").typewriter();
+});
