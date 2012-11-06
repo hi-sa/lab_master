@@ -73,7 +73,11 @@
                 <div class='post_like_right'>
                   <% if post.fb_post_likes.present? %>
                     <% post.fb_post_likes.each do |like| %>
-                      <%= image_tag like.get_image, class: 'image_25', style: 'margin:0 1px 2px 0' %>
+                      <% begin %>
+                        <%= image_tag like.get_image, class: 'image_25', style: 'margin:0 1px 2px 0' %>
+                      <% rescue %>
+                        <%= image_tag 'https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif', class: 'image_25', style: 'margin:0 1px 2px 0' %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </div>
@@ -83,7 +87,11 @@
                 <div class='post_comment_right'>
                   <% if post.fb_post_comments.present? %>
                     <% post.fb_post_comments.each do |comment| %>
-                      <a href='' rel='tooltip' data-placement='bottom' title='<%= comment.message %>'><%= image_tag comment.get_image, class: 'image_25', style: 'margin:0 1px 2px 0' %></a>
+                      <% begin %>
+                        <a href='' rel='tooltip' data-placement='bottom' title='<%= comment.message %>'><%= image_tag comment.get_image, class: 'image_25', style: 'margin:0 1px 2px 0' %></a>
+                      <% rescue %>
+                        <%= image_tag 'https://fbcdn-profile-a.akamaihd.net/static-ak/rsrc.php/v2/yo/r/UlIqmHJn-SK.gif', class: 'image_25', style: 'margin:0 1px 2px 0' %>
+                      <% end %>
                     <% end %>
                   <% end %>
                 </div>

@@ -18,9 +18,9 @@
     <% if READABLE_FORMATS.include?(@file_info.ext) || READABLE_IMAGE_FORMATS.include?(@file_info.ext) %>
       <% case @file_info.ext %>
       <% when '.doc','.docx','.pdf' %>
-        <%= link_to '', "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
+        <%= link_to '', "http://www19428ue.sakura.ne.jp/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
       <% when '.png','.jpg','.jpeg','.JPEG','.JPG','.gif' %>
-        <%= image_tag "http://www19428ue.sakura.ne.jp:3000/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
+        <%= image_tag "http://www19428ue.sakura.ne.jp/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
       <% end %>
     <% else %>
       <%= t 'file_not_readable' %>
