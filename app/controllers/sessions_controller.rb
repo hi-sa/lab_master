@@ -13,6 +13,8 @@ class SessionsController < ApplicationController
 
     #尾澤研究室のメンバー以外は弾く
     ozaken_members = GroupMember.make_ozaken_members2array
+    ozaken_members << 43125210 #hosono
+    ozaken_members << 102905424 #matsuzaki
     unless ozaken_members.include?(auth['uid'].to_i)
       redirect_to root_url and return
     end
