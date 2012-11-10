@@ -1,0 +1,18 @@
+$("#result_title").val("<%= escape_javascript(@title)%>");
+
+$("#result_feedurl").val("<%= escape_javascript(@feed_url)%>");
+
+$('#websearch').click(function(){
+  $("#errormes").html('');
+});
+
+$('#submit_button').click(function(){
+  var url = $('#url').val();
+  $('#result_url').val(url);
+});
+
+<% if @error %>
+$("#errormes").html(
+  "<%= escape_javascript(@error)%>"
+);
+<% end %>

@@ -18,3 +18,9 @@
 $(document).ready(function() {
   $("div#typewriter").typewriter();
 });
+
+$(function(){
+  $('*')
+  .ajaxStart   (function(){$('#progress').html("<img src ='/assets/load.gif' alt='loading' />")})
+  .ajaxComplete(function(){$('#progress').html('')});
+});

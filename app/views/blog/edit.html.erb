@@ -1,0 +1,43 @@
+<%= stylesheet_link_tag "inside/blog", :media => "all" %>
+<%= javascript_include_tag "inside/blog", :media => "all" %>
+<%# Blog サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.blogs')), blog_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.new_blog')), new_blog_path %></li>
+      <li class='dropdown active_org'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.edit_blog') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% @registered_blogs.each do |blog| %>
+            <li><%= link_to blog.title, edit_blog_path(blog) %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <div id='typewriter' class='page_desc'>実験中</div>
+  </div>
+</div>
+
+<div class='contents clearfix'>
+  <script>
+    var message = "<%= flash[:alert] %>";
+    if(message){alert(message);}
+  </script>
+  <h1>登録したブログの編集</h1>
+  <%= form_for(@blog, url: blog_path(@blog.id)) do |blog| %>
+    <%= blog.label :url %>
+    <%= blog.url_field :url, maxlength: 195, required: true, id: 'result_url' %>
+
+    <%= blog.label :title %>
+    <%= blog.text_field :title, maxlength: 250, required: true, id: 'result_title' %>
+
+    <%= blog.label :feed_url %>
+    <%= blog.url_field :feed_url, maxlength: 195, required: true, id: 'result_feedurl' %>
+
+    <br>
+
+    <%= blog.submit "修正する", id: 'submit_button' %>
+    <button><%= link_to "削除する", blog_path(@blog.id), method: 'delete', confirm: "「#{@blog.title}」を削除します。よろしいですか？" %></button>
+  <% end %>
+</div>
