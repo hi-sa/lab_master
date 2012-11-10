@@ -1,0 +1,48 @@
+<%= stylesheet_link_tag "inside/blog", :media => "all" %>
+<%= javascript_include_tag "inside/blog", :media => "all" %>
+
+<%# Blog サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.blogs')), blog_index_path %></li>
+      <li class='active_org'><%= link_to (raw(t 'sub_nav.new_blog')), new_blog_path %></li>
+      <li class='dropdown'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.edit_blog') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% @registered_blogs.each do |blog| %>
+            <li><%= link_to blog.title, edit_blog_path(blog) %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <div id='typewriter' class='page_desc'>実験中</div>
+  </div>
+</div>
+
+<div class='contents clearfix'>
+  <script>
+    var message = "<%= flash[:alert] %>";
+    if(message){alert(message);}
+  </script>
+  <h1>ブログの新規登録</h1>
+  <%= form_tag(ajax_search_website_path, remote: true) do %>
+    <%= url_field_tag :url %>
+    <%= submit_tag "検索", id:'websearch' %>
+    <span id='progress'></span>
+  <% end %>
+  <div id='errormes'></div>
+  
+
+  <%= form_for(@blog, url: blog_index_path, :html => {:method => 'post'}) do |blog| %>
+    <%= blog.label :title %>
+    <%= blog.text_field :title, maxlength: 250, required: true, id: 'result_title' %>
+
+    <%= blog.label :feed_url %>
+    <%= blog.url_field :feed_url, maxlength: 195, required: true, id: 'result_feedurl' %>
+
+    <%= blog.hidden_field :url, maxlength: 195, required: true, id: 'result_url' %>
+    <br>
+    <%= blog.submit "登録する", id: 'submit_button' %>
+  <% end %>
+</div>

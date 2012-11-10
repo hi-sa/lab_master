@@ -19,13 +19,19 @@ LabMaster::Application.routes.draw do
   resources :attachment, only: [:index, :show]
   match 'attachment/download/:id' => 'attachment#download'
 
+  # Blog 
+  resources :blog, except: [:show]
+
+  # Ajax
+  match 'ajax/search_website' => 'ajax#search_website'
+
   # Ominuauthの設定
   match 'auth/twitter/callback' => 'sessions#callback'
   match 'auth/facebook/callback' => 'sessions#fb_callback'
   match '/logout' => 'sessions#destroy', :as => :logout
   match '/logout' => 'sessions#fb_destroy', :as => :logout
 
-  match 'home/pdf' => 'home#pdf'
+  #match 'home/pdf' => 'home#pdf'
   
   #get "group/index"
   #get "group/new"
