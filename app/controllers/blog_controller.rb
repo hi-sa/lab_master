@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class BlogController < ApplicationController
   layout "twitter"
+  before_filter :is_admin, :only => ['new','create','edit','update','destroy']
 
   def index
     # URLパラメータの取得
@@ -54,6 +55,14 @@ class BlogController < ApplicationController
     @blog.destroy
 
     redirect_to blog_index_path
+  end
+
+  private
+
+  def is_admin
+    unless session[:twitter_id] == 154423524
+      redirect_to blog_index_path
+    end
   end
 
 end
