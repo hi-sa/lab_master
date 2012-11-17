@@ -1,2 +1,23 @@
-<h1>Group#edit</h1>
-<p>Find me in app/views/group/edit.html.erb</p>
+<%# Group サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.allgroups')), group_index_path %></li>
+      <li><%= link_to (raw(t 'sub_nav.create_group')), new_group_path %></li>
+      <li class='dropdown active_org'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.edit_group') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% @groups.each do |group| %>
+            <li><%= link_to group.name, edit_group_path(group) %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <div id='typewriter' class='page_desc'>Lab Master内で作られたグループの一覧だよ！ </div>
+  </div>
+</div>
+
+
+<div class='contents clearfix'>
+  <h1>グループの編集 </h1>
+</div>

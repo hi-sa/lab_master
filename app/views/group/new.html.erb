@@ -1,55 +1,23 @@
 <%= javascript_include_tag 'group' %>
-<%= link_to "グループ一覧へ",group_index_path %>
-
-
-<h1>グループの新規作成</h1>
-<%= form_for(@group, :url => group_index_path, :html =>{:id => 'create_book',:method => 'post'}) do |f| %>
-
-  <div class="field">
-    <%= f.label :name %><%= tag :br %>
-    <%= f.text_field :name %>
+<%# Group サブナビゲーション %>
+<div class="navbar sub_nav">
+  <div class='navbar-inner navbar-inner-org'>
+    <ul class='nav'>
+      <li><%= link_to (raw(t 'sub_nav.allgroups')), group_index_path %></li>
+      <li class='active_org'><%= link_to (raw(t 'sub_nav.create_group')), new_group_path %></li>
+      <li class='dropdown'>
+        <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href='#'><%= raw(t 'sub_nav.edit_group') %><span class="caret" style='vertical-align:baseline;'></span></a>
+        <ul id='group_list' class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <% @groups.each do |group| %>
+            <li><%= link_to group.name, edit_group_path(group) %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <div id='typewriter' class='page_desc'>Lab Master内で作られたグループの一覧だよ！ </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :description %><%= tag :br %>
-    <%= f.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :main_flg %>
-    <%= f.check_box :main_flg %>
-  </div>
-
-  <%= f.submit '登録する' %>
-
-<% end %>
-
-
-<% if false %>
-  <%= f.fields_for @group.group_members do |gm| %>
-    <div class ='field'>
-      <%= gm.label :name %><%= tag :br %>
-      <%= gm.text_field :name %>
-    </div>
-    <div class='field'>
-      <%= gm.label :twitter_id %><%= tag :br %>
-      <%= gm.text_field :twitter_id %>
-    </div>
-    <div class='field'>
-      <%= gm.label :fb_id %><%= tag :br %>
-      <%= gm.text_field :fb_id %>
-    </div>
-    <div class='field'>
-      <%= gm.label :blog_url, 'ブログのURL' %><%= tag :br %>
-      <%= gm.url_field :blog_url %>
-    </div>
-    <input type="button" value="メンバーを追加する" onClick="ItemField.add();" />
-    <input type="button" value="メンバーを削除する" onClick="ItemField.remove();" />
-    <script type="text/javascript">
-      //ItemField.currentNumber = 1;
-      //ItemField.itemTemplate
-      //= '<h4>メンバー__count__</h4>'
-      //+ '<p><input type="text" name="member__count__" size="30" /></p>';
-    </script>
-  <% end %>
-<% end %>
+<div class='contents clearfix'>
+  <h1>グループの新規作成</h1>
+</div>
