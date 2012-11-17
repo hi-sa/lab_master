@@ -31,13 +31,4 @@ class MailController < ApplicationController
     @attach_mails_num = Mail.count_attach_mails
   end
 
-  def show
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
 end

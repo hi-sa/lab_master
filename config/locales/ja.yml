@@ -55,7 +55,7 @@ ja:
     # blog
     blogs: "<span class='icon-rss'></span> Blogs"
     new_blog: "<span class='icon-plus'></span> New Blog"
-    edit_blog: "<span class='icon-pencil'></span> Edit Blog"
+    edit_blog: "<span class='icon-edit'></span> Edit Blog"
 
   group:
     first: "尾澤研究室1期生"

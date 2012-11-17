@@ -13,7 +13,7 @@ LabMaster::Application.routes.draw do
   match 'facebook/group/:group_id' => 'facebook#group'
 
   # Mail
-  resources :mail, only: [:index, :show, :edit, :update]
+  resources :mail, only: [:index]
 
   # File
   resources :attachment, only: [:index, :show]
