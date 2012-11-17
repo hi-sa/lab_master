@@ -24,9 +24,15 @@
   <% # 添付ファイル %>
   <div class='mail_parts attachment center_text'>
     <% if mail.attach_flg == true %>
-      <a href='<%= attachment_path(mail.attachment.id) %>' rel='tooltip' data-placement='top' title='<%= mail.attachment.filename %>' class='text_black'>
-        <%= raw("<i class='icon-paper-clip big_text'></i>") %>
-      </a>
+      <% if mail.attachments.count == 1 %>
+        <a href='<%= attachment_path(mail.attachments[0].id) %>' rel='tooltip' data-placement='top' title='<%= mail.attachments[0].filename %>' class='text_black'>
+          <%= raw("<i class='icon-paper-clip big_text'></i>") %>
+        </a>
+      <% else %>
+        <a href='<%= attachment_path(mail.attachments[0].id) %>' rel='tooltip' data-placement='top' title='<%= "#{mail.attachments[0].filename}<br>その他#{mail.attachments.count - 1}件" %>' class='text_black'>
+          <%= raw("<i class='icon-paper-clip big_text'></i>") %>
+        </a>
+      <% end %>
     <% end %>
   </div>
 </div>

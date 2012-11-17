@@ -18,9 +18,9 @@
     <% if READABLE_FORMATS.include?(@file_info.ext) || READABLE_IMAGE_FORMATS.include?(@file_info.ext) %>
       <% case @file_info.ext %>
       <% when '.doc','.docx','.pdf' %>
-        <%= link_to '', "http://www19428ue.sakura.ne.jp/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
+        <%= link_to '', "http://www19428ue.sakura.ne.jp/ozaken2/#{@file_info[:file_id]}#{@file_info[:ext]}", class: 'embed' %>
       <% when '.png','.jpg','.jpeg','.JPEG','.JPG','.gif' %>
-        <%= image_tag "http://www19428ue.sakura.ne.jp/ozaken/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
+        <%= image_tag "http://www19428ue.sakura.ne.jp/ozaken2/#{@file_info[:file_id]}#{@file_info[:ext]}" %>
       <% end %>
     <% else %>
       <%= t 'file_not_readable' %>
@@ -60,7 +60,7 @@
     </div>
     <% if @next_file_info.present? %>
       <div class='file_info date_list next_file_info'>
-        <div class='file_info_head date_list_head'><i class='icon-forward'></i> 一件後のファイル</div>
+        <div class='file_info_head date_list_head'><i class='icon-forward'></i> 一件後の添付ファイル付きメール</div>
         <div class='file_info_contents date_list_contents'>
           <table class='width_max'>
             <tbody>
@@ -87,7 +87,7 @@
 
     <% if @prev_file_info.present? %>
       <div class='file_info date_list prev_file_info'>
-        <div class='file_info_head date_list_head'><i class='icon-backward'></i> 一件前のファイル</div>
+        <div class='file_info_head date_list_head'><i class='icon-backward'></i> 一件前の添付ファイル付きメール</div>
         <div class='file_info_contents date_list_contents'>
           <table class='width_max'>
             <tbody>

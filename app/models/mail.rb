@@ -4,7 +4,7 @@ class Mail < ActiveRecord::Base
   attr_accessible :id, :org_id, :subject, :sender, :to, :body, :send_at, :attach_flg 
 
   # アソシエーション
-  has_one :attachment
+  has_many :attachments
 
   # Kaminari(ページネーション)の設定。1ページに表示する件数
   paginates_per 20

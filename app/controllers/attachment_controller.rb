@@ -38,7 +38,7 @@ class AttachmentController < ApplicationController
 
     # ファイルのダウンロードの実行
     begin
-      send_file "public/ozaken/#{file_info[:file_id]}#{file_info[:ext]}", filename: file_info[:filename]
+      send_file "public/ozaken2/#{file_info[:file_id]}#{file_info[:ext]}", filename: file_info[:filename]
     rescue
       redirect_to attachment_index_path, alert: 'ファイルのダウンロードに失敗しました'
     end
