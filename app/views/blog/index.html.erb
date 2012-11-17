@@ -99,7 +99,7 @@
         <ul class='unstyled'>
           <% @registered_blogs.each do |blog| %>
             <% if session[:twitter_id] == 154423524 %>
-              <li>blog.title</li>
+              <li><%= blog.title %></li>
             <% else %>
               <li><%= link_to blog.title, edit_blog_path(blog)%></li>
             <% end %>
